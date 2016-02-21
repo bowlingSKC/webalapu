@@ -4,14 +4,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<h:head>
-    <title>Title</title>
-</h:head>
+<ui:composition template="/WEB-INF/template/main.xhtml">
 
-<h:body>
-    <h1>#{temp.text}</h1>
-</h:body>
+    <ui:define name="title">Üdvözuöljük a MoziÉlmény weboldalán!</ui:define>
+
+    <ui:define name="menu">
+        <ul>
+            <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
+            <li><a href="#" accesskey="2" title="">Our Clients</a></li>
+            <li><a href="#" accesskey="3" title="">About Us</a></li>
+            <li><a href="#" accesskey="4" title="">Careers</a></li>
+            <li><a href="#" accesskey="5" title="">Contact Us</a></li>
+        </ul>
+    </ui:define>
+
+    <ui:define name="banner" />
+
+    <ui:define name="featured">
+        <div class="title">
+            <h2>Híreink</h2>
+            <span class="byline">Legfirsebb hírek a mozik világából</span>
+        </div>
+
+        <ul class="style1">
+            <c:forEach items="#{newsBacking.news}" var="news" varStatus="loop">
+                <li class="#{loop.first ? 'first' : ''}">
+                    <p class="date">
+                        <a href="#">
+                            <h:outputText value="#{news.date}">
+                                <f:convertDateTime type="date" pattern="MMMM" />
+                            </h:outputText>
+                            <b>
+                                <h:outputText value="#{news.date}">
+                                    <f:convertDateTime type="date" pattern="dd" />
+                                </h:outputText>
+                            </b>
+                        </a>
+                    </p>
+                    <h3>#{news.title}</h3>
+                    <p><a href="#">#{news.content}</a></p>
+                </li>
+            </c:forEach>
+        </ul>
+    </ui:define>
+
+    <ui:define name="welcome">
+        <div class="title">
+            <h2>Üdvözöljük a MoziÉlmény weboldalán</h2>
+            <span class="byline">Mert minden ami jó, az mozi</span>
+        </div>
+
+        <p>This is <strong>Privy</strong>, a free, fully standards-compliant CSS template designed by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. The photos in this template are from <a href="http://fotogrph.com/"> Fotogrph</a>. This free template is released under the <a href="http://templated.co/license">Creative Commons Attribution</a> license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you give us credit for it. Have fun :) </p>
+        <ul class="actions">
+            <li><a href="#" class="button">Etiam posuere</a></li>
+        </ul>
+    </ui:define>
+
+</ui:composition>
 
 </html>
