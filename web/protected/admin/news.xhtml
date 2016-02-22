@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:d="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Hírek</title>
@@ -16,65 +17,79 @@
         <h:form id="newsForm">
 
             <h:panelGroup id="results">
-                <h:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
+                <p:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
 
-                    <h:column>
-                        <f:facet name="header">
-                            Date
-                        </f:facet>
+                    <p:column headerText="Date">
                         <h:outputText value="#{news.date}">
                             <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
                         </h:outputText>
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Title
-                        </f:facet>
-                        #{news.title}
-                    </h:column>
+                    <p:column headerText="Title">
+                        <h:outputText value="#{news.title}" />
+                    </p:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Content
-                        </f:facet>
-                        #{news.content}
-                    </h:column>
+                    <p:column headerText="Content">
+                        <h:outputText value="#{news.content}" />
+                    </p:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Actions
-                        </f:facet>
-                        <h:commandLink value="Delete" action="#{newsBacking.delete}" onclick="PF('dialog').close()">
+                    <p:column headerText="Action">
+                        <h:commandLink value="Delete" action="#{newsBacking.delete}">
                             <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
                             <f:ajax render=":newsForm:results" />
                         </h:commandLink>
-                    </h:column>
 
-                </h:dataTable>
+                        <h:commandLink value="Edit" onclick="PF('editdialog').show();">
+                            <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
+                        </h:commandLink>
+                    </p:column>
+
+                </p:dataTable>
             </h:panelGroup>
 
         </h:form>
 
         <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
             <h:form id="insertForm">
+
                 <h:panelGrid columns="2">
 
                     <h:outputLabel for="title" value="Cím:" />
                     <h:inputText id="title" value="#{newNews.title}" />
 
                     <h:outputLabel for="date" value="Dátum:" />
-                    <h:inputText id="date" value="#{newNews.date}">
-                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
-                    </h:inputText>
+                    <p:calendar id="date" value="#{newNews.date}" showOn="button" />
 
                     <h:outputLabel for="content" value="Szöveg:" />
                     <p:editor id="content" value="#{newNews.content}" />
 
                     <f:facet name="footer">
-                        <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}">
+                        <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
                             <f:ajax render=":newsForm:results" />
                         </p:commandButton>
+                    </f:facet>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
+            <h:form id="updateForm">
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel for="edit_title" value="Cím:" />
+                    <h:inputText id="edit_title" value="#{newsBacking.selectedNews.title}" />
+
+                    <h:outputLabel for="edit_date" value="Dátum:" />
+                    <h:inputText id="edit_date" value="#{newsBacking.selectedNews.date}">
+                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                    </h:inputText>
+
+                    <h:outputLabel for="edit_content" value="Szöveg:" />
+                    <p:editor id="edit_content" value="#{newsBacking.selectedNews.content}" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Módosít" actionListener="#{newsBacking.update}" onclick="PF('editdialog').close();" />
                     </f:facet>
 
                 </h:panelGrid>

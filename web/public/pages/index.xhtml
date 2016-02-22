@@ -11,16 +11,8 @@
     <ui:define name="title">Üdvözuöljük a MoziÉlmény weboldalán!</ui:define>
 
     <ui:define name="menu">
-        <ul>
-            <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-            <li><a href="#" accesskey="2" title="">Our Clients</a></li>
-            <li><a href="#" accesskey="3" title="">About Us</a></li>
-            <li><a href="#" accesskey="4" title="">Careers</a></li>
-            <li><a href="#" accesskey="5" title="">Contact Us</a></li>
-        </ul>
+        <ui:include src="../menu.xhtml" />
     </ui:define>
-
-    <ui:define name="banner" />
 
     <ui:define name="featured">
         <div class="title">
@@ -29,7 +21,7 @@
         </div>
 
         <ul class="style1">
-            <c:forEach items="#{newsBacking.news}" var="news" varStatus="loop">
+            <c:forEach items="#{newsBacking.top5News}" var="news" varStatus="loop">
                 <li class="#{loop.first ? 'first' : ''}">
                     <p class="date">
                         <a href="#">

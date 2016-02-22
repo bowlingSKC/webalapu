@@ -13,6 +13,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class NewsBacking extends BaseBacking implements Serializable {
     private NewsManagerLocal newsManager;
 
     private List<News> news;
+    private List<News> top5News;
     private News selectedNews;
 
     @Named
@@ -34,7 +36,9 @@ public class NewsBacking extends BaseBacking implements Serializable {
 
     @PostConstruct
     public void init() {
-        news = newsManager.getTop5News();
+        top5News = newsManager.getTop5News();
+
+        news = newsManager.getAllNews();
     }
 
     public List<News> getNews() {
@@ -58,9 +62,27 @@ public class NewsBacking extends BaseBacking implements Serializable {
     }
 
     public String insert() {
-        System.out.println( newNews );
         newsManager.addNewNews(newNews);
+        news.add(newNews);
+
+        news.sort(new Comparator<News>() {
+            @Override
+            public int compare(News o1, News o2) {
+                if( o1.getDate().before(o2.getDate()) ) {
+                    return 1;
+                } else if( o1.getDate().after(o2.getDate()) ) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
         newNews = new News();
+        return null;
+    }
+
+    public String update() {
+        System.out.println( "Updated: " + selectedNews );
         return null;
     }
 
@@ -69,6 +91,7 @@ public class NewsBacking extends BaseBacking implements Serializable {
     }
 
     public void setSelectedNews(News selectedNews) {
+        System.out.println("Selected news: " + selectedNews);
         this.selectedNews = selectedNews;
     }
 
@@ -78,5 +101,13 @@ public class NewsBacking extends BaseBacking implements Serializable {
 
     public void setNewNews(News newNews) {
         this.newNews = newNews;
+    }
+
+    public List<News> getTop5News() {
+        return top5News;
+    }
+
+    public void setTop5News(List<News> top5News) {
+        this.top5News = top5News;
     }
 }
