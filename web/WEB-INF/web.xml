@@ -25,6 +25,12 @@
         <param-value>Development</param-value>
     </context-param>
 
+    <!-- Date/Time conversion deafult timezone -->
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <welcome-file-list>
         <welcome-file>public/pages/index.xhtml</welcome-file>
     </welcome-file-list>
