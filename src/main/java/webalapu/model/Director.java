@@ -6,9 +6,9 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "actor")
-public class Actor implements Serializable{
-    private static final long serialVersionUID = 197654612546456456L;
+@Table(name = "director")
+public class Director implements Serializable {
+    private static final long serialVersionUID = 1976546465461561356L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +26,17 @@ public class Actor implements Serializable{
     @Column(name = "personal_details")
     private String personalDetails;
 
-    public Actor() {
+    public Director() {
 
     }
 
-    public Actor(Integer id, String name, String personalDetails) {
+    public Director(Integer id, String name, String personalDetails) {
         this.id = id;
         this.name = name;
         this.personalDetails = personalDetails;
     }
 
-    public Actor(String name, String personalDetails){
+    public Director(String name, String personalDetails){
         this.name = name;
         this.personalDetails = personalDetails;
     }
@@ -68,12 +68,12 @@ public class Actor implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Actor)) return false;
+        if (!(o instanceof Director)) return false;
 
-        Actor actor = (Actor) o;
+        Director director = (Director) o;
 
-        if (!name.equals(actor.name)) return false;
-        if (personalDetails != null ? !personalDetails.equals(actor.personalDetails) : actor.personalDetails != null)
+        if (!name.equals(director.name)) return false;
+        if (personalDetails != null ? !personalDetails.equals(director.personalDetails) : director.personalDetails != null)
             return false;
 
         return true;
@@ -88,7 +88,7 @@ public class Actor implements Serializable{
 
     @Override
     public String toString() {
-        return "Actor{" +
+        return "Director{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", personalDetails='" + personalDetails + '\'' +

@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 //TODO: Admin kapcsolat modellezése
 
+@Entity
+@Table(name = "cinema")
 public class Cinema implements Serializable {
     private static final long serialVersionUID = 19765463226456456L;
 
