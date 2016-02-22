@@ -9,14 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named
 @ViewScoped
@@ -37,7 +35,7 @@ public class NewsBacking extends BaseBacking implements Serializable {
     @PostConstruct
     public void init() {
         top5News = newsManager.getTop5News();
-
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         news = newsManager.getAllNews();
     }
 
