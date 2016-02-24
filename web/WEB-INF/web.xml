@@ -15,10 +15,6 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-
     <!-- Majd a végén át kell állítani Production-ra -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>

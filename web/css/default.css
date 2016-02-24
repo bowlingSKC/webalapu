@@ -14,7 +14,6 @@
 		color: #444444;
 	}
 	
-	
 	h1, h2, h3
 	{
 		margin: 0;
@@ -41,6 +40,7 @@
 	
 	strong
 	{
+
 	}
 	
 	a
@@ -200,6 +200,7 @@
 	
 	ul.style1 .date a
 	{
+
 	}
 	
 	ul.style1 .date a:hover
@@ -433,10 +434,12 @@
 
 	#menu
 	{
+
 	}
 	
 	#menu ul
 	{
+
 	}
 	
 	#menu li
@@ -454,12 +457,19 @@
 		font-weight: 700;
 		color: rgba(255,255,255,0.5);
 	}
-	
-	#menu li:hover a, #menu li.active a, #menu li.active span
+
+	#menu li a:hover, #menu li span:hover
 	{
+		display: block;
+		padding: 2em 1.5em;
+		text-align: center;
+		text-decoration:  underline;
+		text-transform: uppercase;
+		font-weight: 700;
+		color: rgba(255,255,255,0.7);
 	}
-	
-	#menu .current_page_item a
+
+	.active > a
 	{
 		background: #2980b9;
 		color: rgba(255,255,255,1);
@@ -467,6 +477,7 @@
 	
 	#menu .icon
 	{
+
 	}
 
 /*********************************************************************************/
