@@ -85,10 +85,6 @@
         <param-value>eggplant</param-value>
     </context-param>
 
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-
     <welcome-file-list>
         <welcome-file>public/pages/index.xhtml</welcome-file>
     </welcome-file-list>

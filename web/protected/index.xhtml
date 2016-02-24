@@ -11,6 +11,9 @@
 </h:head>
 
 <h:body>
+
+    <h1>Hello, #{request.userPrincipal.name}</h1>
+
     <c:if test="#{request.isUserInRole('AppAdmin')}">
         <h:link value="Hírek szerkesztése" outcome="admin/news.xhtml" /><br/>
         <h:form>
