@@ -31,6 +31,64 @@
         <param-value>true</param-value>
     </context-param>
 
+    <!-- Security  -->
+    <security-constraint>
+        <display-name>securityConstraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <url-pattern>/protected/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AppUser</role-name>
+            <role-name>AppAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>securityConstraint2</display-name>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <url-pattern>/protected/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AppAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>cinemaRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/public/pages/login.xhtml</form-login-page>
+            <form-error-page>/public/pages/forbidden.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <!-- Roles -->
+    <security-role>
+        <role-name>AppUser</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>AppAdmin</role-name>
+    </security-role>
+
+    <!-- HTPP Status -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/public/pages/forbidden.xhtml</location>
+    </error-page>
+
+    <!-- Primefaces theme -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>eggplant</param-value>
+    </context-param>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
     <welcome-file-list>
         <welcome-file>public/pages/index.xhtml</welcome-file>
     </welcome-file-list>
