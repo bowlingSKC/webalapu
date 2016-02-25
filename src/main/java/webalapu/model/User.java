@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -38,6 +39,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "credit")
     private Integer credit;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private List<UserGroup> userGroupList;
 
     public User() {
 
@@ -97,5 +101,13 @@ public class User implements Serializable {
 
     public void setCredit(Integer credit) {
         this.credit = credit;
+    }
+
+    public List<UserGroup> getUserGroupList() {
+        return userGroupList;
+    }
+
+    public void setUserGroupList(List<UserGroup> userGroupList) {
+        this.userGroupList = userGroupList;
     }
 }
