@@ -8,18 +8,10 @@
 
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
-    <!--
-    <ui:define name="title">Üdvözuöljük a MoziÉlmény weboldalán!</ui:define>
-    -->
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
     <ui:define name="featured">
+
         <div class="title">
-            <h2>Híreink</h2>
-            <span class="byline">Legfirsebb hírek a mozik világából</span>
+            <h2>Legfirsebb hírek a mozik világából</h2>
         </div>
 
         <ul class="style1">
@@ -42,13 +34,11 @@
                 </li>
             </c:forEach>
         </ul>
+
     </ui:define>
 
-    <ui:define name="welcome">
-        <div class="title">
-            <h2>Üdvözöljük a MoziÉlmény weboldalán</h2>
-            <span class="byline">Mert minden ami jó, az mozi</span>
-        </div>
+    <ui:define name="menu">
+        <ui:include src="../menu.xhtml" />
     </ui:define>
 
 </ui:composition>
