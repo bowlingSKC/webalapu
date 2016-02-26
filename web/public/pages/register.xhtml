@@ -9,27 +9,22 @@
 
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
-    <ui:define name="title">#{msg['window.title']}</ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-    <ui:define name="welcome">
-        <div class="title">
-            <h2>Regisztráció</h2>
-            <span class="byline">Új felhasználó fiók létrehozása</span>
-        </div>
-
+    <ui:define name="featured">
         <p>
             Az alábbi adatok kitöltése kötelező:
         </p>
 
         <h:form id="registerUserForm">
-            <p:panelGrid>
+            <p:panelGrid styleClass="panelGridCenter">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">Regisztráció</p:column>
+                    </p:row>
+                </f:facet>
+
                 <p:row>
                     <p:column>Vezetéknév</p:column>
-                    <p:column><p:inputText id="firstname" value="#{newUser.firstName}" required="true" requiredMessage="A 'Vezetknév' mező kitöltése kötelező" /></p:column>
+                    <p:column><p:inputText id="firstname" value="#{newUser.firstName}" required="true" requiredMessage="A 'Vezetéknév' mező kitöltése kötelező" /></p:column>
                 </p:row>
 
                 <p:row>
@@ -76,6 +71,10 @@
             Amennyiben már rendelkezik MoziÉlmény fiókkal, akkor <h:link outcome="login.xhtml" value="ITT"/> beléphet a saját felhasználói felületébe.
         </p>
 
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="../menu.xhtml" />
     </ui:define>
 
 </ui:composition>

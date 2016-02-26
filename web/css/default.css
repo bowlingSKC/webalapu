@@ -404,7 +404,7 @@
 	
 	#logo a
 	{
-		text-decoration: none;
+		/*text-decoration: none;*/
 		color: #FFF;
 	}
 	
@@ -469,6 +469,18 @@
 		color: rgba(255,255,255,1.0);
 	}
 
+	.loginButton
+	{
+		text-decoration:  none;
+		text-transform: uppercase;
+		color: rgba(255,255,255,1.0);
+	}
+
+	.loginButton:hover
+	{
+		text-decoration:  underline;
+	}
+
 	.active > a
 	{
 		background: #2980b9;
@@ -496,6 +508,10 @@
 	#page
 	{
 		background: #2a2a2a;
+	}
+
+	.panelGridCenter {
+		margin: 0 auto;
 	}
 
 /*********************************************************************************/

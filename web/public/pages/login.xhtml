@@ -9,24 +9,9 @@
 
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
-    <ui:define name="title">#{msg['window.title']}</ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-    <ui:define name="welcome">
-        <div class="title">
-            <h2>Bejelentkezés</h2>
-            <span class="byline">Belépés a felhasználói fiókba</span>
-        </div>
-
-        <p>
-            Jelentkezzé be, hogy mindenhez odaférjé <!-- TODO: azt hiszem ezt át kell írni -->
-        </p>
-
+    <ui:define name="featured">
         <form action="j_security_check" method="post">
-            <p:panelGrid>
+            <p:panelGrid styleClass="panelGridCenter">
                 <f:facet name="header">
                     <p:row>
                         <p:column colspan="2">Bejelentkezés</p:column>
@@ -55,6 +40,10 @@
             Nincs még MoziÉlmény fiókja? <a href="#{request.contextPath}/public/pages/register.xhtml">Regisztráljon itt</a>, hogy ne maradjon le a legfrisebb hírekről és akciókról!
         </p>
 
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="../menu.xhtml" />
     </ui:define>
 
 </ui:composition>
