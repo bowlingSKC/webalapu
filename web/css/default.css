@@ -365,7 +365,7 @@
 	
 	.title h2
 	{
-		text-transform: lowercase;
+		/*text-transform: lowercase;*/
 		font-size: 2.8em;
 	}
 	
@@ -381,7 +381,7 @@
 
 	#header
 	{
-		position: relative;
+		position: fixed;
 		float: left;
 		width: 300px;
 		padding: 3em 0em;
@@ -394,7 +394,7 @@
 	#logo
 	{
 		text-align: center;
-		margin-bottom: 4em;
+		margin-bottom: 2em;
 	}
 	
 	#logo h1
@@ -434,7 +434,8 @@
 
 	#menu
 	{
-
+		position: fixed;
+		width: inherit;
 	}
 	
 	#menu ul
@@ -537,7 +538,7 @@
 	{
 		overflow: hidden;
 		margin-bottom: 3em;
-		padding-top: 5em;
+		padding-top: 1em;
 		border-top: 1px solid rgba(0,0,0,0.08);
 	}
 
