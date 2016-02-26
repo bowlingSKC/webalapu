@@ -7,12 +7,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui" xmlns:d="http://java.sun.com/jsf/core">
 
-<h:head>
-    <title>Hírek</title>
-</h:head>
+<ui:composition template="/WEB-INF/template/main.xhtml">
 
-<h:body>
-    <div align="center">
+    <ui:define name="featured">
+
+        <div class="title">
+            <h2>Hírek szerkesztése</h2>
+        </div>
 
         <h:form id="newsForm">
 
@@ -98,8 +99,12 @@
 
         <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
 
+    </ui:define>
 
-    </div>
-</h:body>
+    <ui:define name="menu">
+        <ui:include src="../menu.xhtml" />
+    </ui:define>
+
+</ui:composition>
 
 </html>

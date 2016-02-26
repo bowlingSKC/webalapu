@@ -14,6 +14,14 @@ public class MenuBacking {
         return "/public/pages/" + fileName;
     }
 
+    public String getLoggedPath(String fileName) {
+        return "/protected/" + fileName;
+    }
+
+    public String getAdminPath(String fileName) {
+        return "/protected/admin/" + fileName;
+    }
+
     public String isActive(String fileName) {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String path = req.getServletPath();
