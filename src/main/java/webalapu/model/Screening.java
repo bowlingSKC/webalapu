@@ -4,8 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-
-//TODO: terem, mozi és discount kapcsolatok modellezése
+import java.util.List;
 
 @Entity
 @Table(name = "screening")
@@ -43,6 +42,13 @@ public class Screening implements Serializable{
     @NotNull
     @Column(name = "hall_col")
     private Integer hallCol;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "screening")
+    private List<Ticket> tickets;
+
+    @JoinColumn(name = "hall_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Hall hall;
 
     public Screening(){
 
@@ -111,6 +117,22 @@ public class Screening implements Serializable{
 
     public void setHallCol(Integer hallCol) {
         this.hallCol = hallCol;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Hall getHall() {
+        return hall;
+    }
+
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
 
     @Override

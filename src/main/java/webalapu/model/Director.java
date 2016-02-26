@@ -4,10 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "director")
 public class Director implements Serializable {
+
     private static final long serialVersionUID = 1976546465461561356L;
 
     @Id
@@ -25,6 +27,9 @@ public class Director implements Serializable {
     @Basic(optional = false)
     @Column(name = "personal_details")
     private String personalDetails;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "director")
+    private List<Movie> movies;
 
     public Director() {
 
@@ -63,6 +68,14 @@ public class Director implements Serializable {
 
     public void setPersonalDetails(String personalDetails) {
         this.personalDetails = personalDetails;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
     @Override

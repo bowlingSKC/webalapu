@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "actor")
@@ -25,6 +26,9 @@ public class Actor implements Serializable{
     @Basic(optional = false)
     @Column(name = "personal_details")
     private String personalDetails;
+
+    @OneToMany(mappedBy = "actor")
+    private List<MovieActor> movies;
 
     public Actor() {
 
@@ -63,6 +67,14 @@ public class Actor implements Serializable{
 
     public void setPersonalDetails(String personalDetails) {
         this.personalDetails = personalDetails;
+    }
+
+    public List<MovieActor> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<MovieActor> movies) {
+        this.movies = movies;
     }
 
     @Override

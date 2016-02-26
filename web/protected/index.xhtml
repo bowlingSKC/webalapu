@@ -14,18 +14,23 @@
 
     <h1>Hello, #{request.userPrincipal.name}</h1>
 
+    <!-- Admin -->
     <c:if test="#{request.isUserInRole('AppAdmin')}">
         <h:link value="Hírek szerkesztése" outcome="admin/news.xhtml" /><br/>
+        <h:link value="Felhasználók" outcome="admin/users.xhtml" /><br/>
         <h:form>
             <h:commandLink action="#{logoutBacking.logout}" value="Kiejelntkezés" />
         </h:form>
     </c:if>
+
+    <!-- Felhasználó -->
     <c:if test="#{request.isUserInRole('AppUser')}">
         Még semmi funkciód sincs ... na azért mégis van:
         <h:form>
             <h:commandLink action="#{logoutBacking.logout}" value="Kiejelntkezés" />
         </h:form>
     </c:if>
+
 </h:body>
 
 </html>

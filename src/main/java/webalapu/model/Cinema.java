@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 //TODO: Admin kapcsolat modellezése
 
@@ -39,6 +40,9 @@ public class Cinema implements Serializable {
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "cinema")
+    private List<Hall> halls;
 
     public Cinema(){
 

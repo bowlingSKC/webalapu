@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "genre")
@@ -25,6 +26,9 @@ public class Genre implements Serializable{
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(mappedBy = "genreList")
+    private List<Movie> movies;
 
     public Genre(){
 
@@ -63,6 +67,14 @@ public class Genre implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
     @Override

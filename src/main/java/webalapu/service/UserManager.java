@@ -62,4 +62,51 @@ public class UserManager implements UserManagerLocal {
         em.remove(user);
         em.flush();
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        Query query = em.createQuery("SELECT user FROM User user", User.class);
+        List<User> users = query.getResultList();
+        if(users == null) {
+            new ArrayList<User>();
+        }
+        return users;
+    }
+
+    @Override
+    public User getUserById(String email) throws UserNotFoundException {
+        Query query = em.createQuery("SELECT user.email, user.firstName, user.lastName, user.password, user.credit FROM User user WHERE user.email LIKE :email");
+        query.setParameter("email", email);
+        Object[] userInfo;
+        try {
+            userInfo = (Object[]) query.getSingleResult();
+        } catch (NoResultException ex) {
+            throw new UserNotFoundException();
+        }
+
+        User user = new User(
+                (String) userInfo[0],
+                (String) userInfo[1],
+                (String) userInfo[2],
+                (String) userInfo[3],
+                (Integer) userInfo[4]
+        );
+        return user;
+    }
+
+    @Override
+    public void updateUser(User user) throws UserNotFoundException {
+        User updateUser = em.find(User.class, user.getEmail());
+        if( updateUser == null ) {
+            throw new UserNotFoundException();
+        }
+
+        mergeUserAttrs(user, updateUser);
+        em.merge(updateUser);
+        em.flush();
+    }
+
+    private void mergeUserAttrs(User user, User updateUser) {
+        // TODO: implmentálni
+    }
 }

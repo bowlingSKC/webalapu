@@ -4,12 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-
-//TODO: Mozi kapcsolat modellezése
+import java.util.List;
 
 @Entity
 @Table(name = "hall")
 public class Hall implements Serializable{
+
     private static final long serialVersionUID = 19765461754653456L;
 
     @Id
@@ -33,6 +33,13 @@ public class Hall implements Serializable{
     @NotNull
     @Column(name = "cols")
     private Integer cols;
+
+    @JoinColumn(name = "cinema_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Cinema cinema;
+
+    @OneToMany(mappedBy = "hall")
+    private List<Screening> screenings;
 
     public Hall() {
 
@@ -81,6 +88,22 @@ public class Hall implements Serializable{
 
     public void setCols(Integer cols) {
         this.cols = cols;
+    }
+
+    public Cinema getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(Cinema cinema) {
+        this.cinema = cinema;
+    }
+
+    public List<Screening> getScreenings() {
+        return screenings;
+    }
+
+    public void setScreenings(List<Screening> screenings) {
+        this.screenings = screenings;
     }
 
     @Override
