@@ -428,6 +428,20 @@
 		border-radius: 50%;
 	}
 
+	.about img
+	{
+		display: inline-block;
+		margin-bottom: 1em;
+		border-radius: 50%;
+	}
+
+	.about
+	{
+		text-transform: uppercase;
+		text-align:center;
+		vertical-align: middle;
+	}
+
 /*********************************************************************************/
 /* Menu                                                                          */
 /*********************************************************************************/
