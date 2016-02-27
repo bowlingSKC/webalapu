@@ -1,5 +1,7 @@
 package webalapu.model;
 
+import webalapu.util.Constants;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,6 +35,9 @@ public class News implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date = new Date();
+
+    @Transient
+    private String shortContent;
 
     public News() {
 
@@ -82,6 +87,28 @@ public class News implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getShortContent() {
+        makeShortContent();
+        return shortContent;
+    }
+
+    public void setShortContent(String shortContent) {
+        this.shortContent = shortContent;
+    }
+
+    private void makeShortContent() {
+        String[] words = content.split(" ");
+        if( words.length > Constants.NUM_OF_SHORT_CONTENT) {
+            shortContent = "";
+            for(int i = 0; i < Constants.NUM_OF_SHORT_CONTENT; i++) {
+                shortContent += words[i] + " ";
+            }
+            shortContent += "...";
+        } else {
+            shortContent = content;
+        }
     }
 
     @Override

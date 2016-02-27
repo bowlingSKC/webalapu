@@ -37,6 +37,7 @@
         <auth-constraint>
             <role-name>AppUser</role-name>
             <role-name>AppAdmin</role-name>
+            <role-name>AppManager</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -48,6 +49,17 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>AppAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>securityConstraint3</display-name>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <url-pattern>/protected/manager/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AppManager</role-name>
         </auth-constraint>
     </security-constraint>
     
@@ -63,6 +75,10 @@
     <!-- Roles -->
     <security-role>
         <role-name>AppUser</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>AppManager</role-name>
     </security-role>
     
     <security-role>

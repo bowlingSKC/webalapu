@@ -22,6 +22,10 @@ public class MenuBacking {
         return "/protected/admin/" + fileName;
     }
 
+    public String getManagerPath(String fileName) {
+        return "/protected/manager/" + fileName;
+    }
+
     public String isActive(String fileName) {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String path = req.getServletPath();
