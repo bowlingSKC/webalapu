@@ -8,10 +8,14 @@
 
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
+    <ui:define name="metadata">
+        <f:event type="preRenderView" listener="#{logoutBacking.login}" />
+    </ui:define>
+
     <ui:define name="featured">
 
         <div class="title">
-            <h2>Belső felület</h2>
+            <h2>#{user.firstName} #{user.lastName}</h2>
         </div>
 
         egy logged oldal index <br/>

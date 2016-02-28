@@ -50,30 +50,6 @@
 
         </h:form>
 
-        <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
-            <h:form id="insertForm">
-
-                <h:panelGrid columns="2">
-
-                    <h:outputLabel for="title" value="Cím:" />
-                    <h:inputText id="title" value="#{newNews.title}" />
-
-                    <h:outputLabel for="date" value="Dátum:" />
-                    <p:calendar id="date" value="#{newNews.date}" showOn="button" />
-
-                    <h:outputLabel for="content" value="Szöveg:" />
-                    <p:editor id="content" value="#{newNews.content}" />
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
-                            <f:ajax render=":newsForm:results" />
-                        </p:commandButton>
-                    </f:facet>
-
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
-
         <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
             <h:form id="updateForm">
                 <h:panelGrid columns="2">
@@ -97,7 +73,33 @@
             </h:form>
         </p:dialog>
 
-        <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
+        <h:form>
+            <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
+                <h:form id="insertForm">
+
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel for="title" value="Cím:" />
+                        <h:inputText id="title" value="#{newNews.title}" />
+
+                        <h:outputLabel for="date" value="Dátum:" />
+                        <p:calendar id="date" value="#{newNews.date}" showOn="button" />
+
+                        <h:outputLabel for="content" value="Szöveg:" />
+                        <p:editor id="content" value="#{newNews.content}" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
+                                <f:ajax render=":newsForm:results" />
+                            </p:commandButton>
+                        </f:facet>
+
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
+        </h:form>
 
     </ui:define>
 

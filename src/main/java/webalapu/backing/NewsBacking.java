@@ -1,20 +1,20 @@
 package webalapu.backing;
 
-import org.primefaces.context.RequestContext;
 import webalapu.model.News;
 import webalapu.service.NewsManagerLocal;
 import webalapu.service.exception.NewsNotFoundException;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 @Named
 @ViewScoped
