@@ -2,7 +2,7 @@
 	{
 		height: 100%;
 	}
-	
+
 	body
 	{
 		margin: 0px;
@@ -13,7 +13,7 @@
 		font-weight: 300;
 		color: #444444;
 	}
-	
+
 	h1, h2, h3
 	{
 		margin: 0;
@@ -21,45 +21,47 @@
 		font-weight: 600;
 		color: #333333;
 	}
-	
+
 	p, ol, ul
 	{
 		margin-top: 0;
 	}
-	
+
 	ol, ul
 	{
 		padding: 0;
 		list-style: none;
 	}
-	
+
 	p
 	{
 		line-height: 180%;
 	}
-	
+
 	strong
 	{
 
 	}
-	
+
 	a
 	{
 		color: #2980b9;
 	}
-	
+
 	a:hover
 	{
 		text-decoration: none;
 	}
-	
+
 	.container
 	{
 		overflow: hidden;
 		margin: 0em auto;
 		width: 1200px;
 	}
-	
+
+
+
 /*********************************************************************************/
 /* Image Style                                                                   */
 /*********************************************************************************/
@@ -68,32 +70,32 @@
 	{
 		display: inline-block;
 	}
-	
+
 	.image img
 	{
 		display: block;
 		width: 100%;
 	}
-	
+
 	.image-full
 	{
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 	}
-	
+
 	.image-left
 	{
 		float: left;
 		margin: 0 2em 2em 0;
 	}
-	
+
 	.image-centered
 	{
 		display: block;
 		margin: 0 0 2em 0;
 	}
-	
+
 	.image-centered img
 	{
 		margin: 0 auto;
@@ -114,36 +116,36 @@
 		text-align: left;
 		color: #6c6c6c
 	}
-	
+
 	ul.style1 li
 	{
 		padding: 1.6em 0em 0em 0em;
 		margin: 0 0 2.5em 0;
-		border-top: 1px solid rgba(0,0,0,.1); 
+		border-top: 1px solid rgba(0,0,0,.1);
 	}
-	
+
 	ul.style1 li:first-child
 	{
 		border-top: none;
 	}
-	
+
 	ul.style1 p
 	{
 		margin: 0;
 	}
-	
+
 	ul.style1 a
 	{
 		display: block;
 		text-decoration: none;
 		color: #2D2D2D;
 	}
-	
+
 	ul.style1 a:hover
 	{
 		text-decoration: underline;
 	}
-	
+
 	ul.style1 h3
 	{
 		padding: 1em 0em 5px 0em;
@@ -151,13 +153,13 @@
 		font-size: 1em;
 		font-weight: 400;
 	}
-	
+
 	ul.style1 .first
 	{
 		padding-top: 0;
 		background: none;
 	}
-	
+
 	ul.style1 .date
 	{
 		float: left;
@@ -173,9 +175,9 @@
 		text-shadow: 0px 1px 0px rgba(0,0,0,.2);
 		font-size: 1em;
 		font-weight: 400;
-		border-right: 1px solid rgba(0,0,0,.1); 
+		border-right: 1px solid rgba(0,0,0,.1);
 	}
-	
+
 	ul.style1 .date:after
 	{
 		content: '';
@@ -187,7 +189,7 @@
 		height: 100%;
 		border-radius: 6px;
 	}
-	
+
 	ul.style1 .date b
 	{
 		margin: 0;
@@ -197,12 +199,12 @@
 		font-size: 1.8em;
 		font-weight: 700;
 	}
-	
+
 	ul.style1 .date a
 	{
 
 	}
-	
+
 	ul.style1 .date a:hover
 	{
 		text-decoration: none;
@@ -219,26 +221,26 @@
 		padding: 2em 0em 0em 0em;
 		list-style: none;
 	}
-	
+
 	ul.contact li
 	{
 		display: inline-block;
 		padding: 0em 0.30em;
 		font-size: 1em;
 	}
-	
+
 	ul.contact li span
 	{
 		display: none;
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	ul.contact li a
 	{
 		color: #FFF;
 	}
-	
+
 	ul.contact li a:before
 	{
 		display: inline-block;
@@ -250,7 +252,7 @@
 		text-align: center;
 		color: #FFFFFF;
 	}
-	
+
 	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
 	ul.contact li a.icon-facebook:before { background: #39599F; }
 	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
@@ -272,7 +274,7 @@
 		font-size: 0.90em;
 		color: #FFF;
 	}
-	
+
 	.button:before
 	{
 		display: inline-block;
@@ -285,7 +287,7 @@
 		text-align: center;
 		color: #272925;
 	}
-		
+
 /*********************************************************************************/
 /* 4-column                                                                      */
 /*********************************************************************************/
@@ -297,7 +299,7 @@
 	{
 		width: 235px;
 	}
-	
+
 	.box1,
 	.box2,
 	.box3
@@ -305,12 +307,12 @@
 		float: left;
 		margin-right: 20px;
 	}
-	
+
 	.box4
 	{
 		float: right;
 	}
-	
+
 /*********************************************************************************/
 /* 3-column                                                                      */
 /*********************************************************************************/
@@ -328,7 +330,7 @@
 		float: left;
 		margin-right: 20px;
 	}
-	
+
 	.boxC
 	{
 		float: right;
@@ -343,7 +345,7 @@
 	{
 		width: 575px;
 	}
-	
+
 	.tbox1
 	{
 		float: left;
@@ -362,26 +364,26 @@
 	{
 		margin-bottom: 3em;
 	}
-	
+
 	.title h2
 	{
 		/*text-transform: lowercase;*/
 		font-size: 2.8em;
 	}
-	
+
 	.title .byline
 	{
 		font-size: 1.3em;
 		color: #6F6F6F;
 	}
-		
+
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
 
 	#header
 	{
-		position: fixed;
+		position: relative;
 		float: left;
 		width: 300px;
 		padding: 3em 0em;
@@ -396,18 +398,18 @@
 		text-align: center;
 		margin-bottom: 2em;
 	}
-	
+
 	#logo h1
 	{
 		display: block;
 	}
-	
+
 	#logo a
 	{
 		/*text-decoration: none;*/
 		color: #FFF;
 	}
-	
+
 	#logo span
 	{
 		padding-right: 0.5em;
@@ -420,7 +422,7 @@
 	{
 		color: rgba(255,255,255,0.5);
 	}
-	
+
 	#logo img
 	{
 		display: inline-block;
@@ -442,26 +444,45 @@
 		vertical-align: middle;
 	}
 
+	.paratlan
+	{
+
+	}
+
+	.paros
+	{
+
+	}
+
+	.divider
+	{
+		opacity: 0.2;
+		margin-top: 25px;
+		margin-bottom: 25px;
+	}
+
+
+
 /*********************************************************************************/
 /* Menu                                                                          */
 /*********************************************************************************/
 
 	#menu
 	{
-		position: fixed;
+		position: relative;
 		width: inherit;
 	}
-	
+
 	#menu ul
 	{
 
 	}
-	
+
 	#menu li
 	{
 		border-top: 1px solid rgba(255,255,255,0.08);
 	}
-	
+
 	#menu li a, #menu li span
 	{
 		display: block;
@@ -501,7 +522,7 @@
 		background: #2980b9;
 		color: rgba(255,255,255,1.0);
 	}
-	
+
 	#menu .icon
 	{
 
@@ -527,6 +548,7 @@
 
 	.panelGridCenter {
 		margin: 0 auto;
+
 	}
 
 /*********************************************************************************/
@@ -582,7 +604,7 @@
 		padding: 5em 0em;
 		border-top: 1px solid rgba(0,0,0,0.08);
 	}
-	
+
 	#copyright span
 	{
 		display: block;
@@ -594,7 +616,7 @@
 		color: rgba(0,0,0,0.7);
 		font-weight: bold;
 	}
-	
+
 	#copyright a
 	{
 		text-decoration: none;
