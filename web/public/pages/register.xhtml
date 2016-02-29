@@ -16,11 +16,9 @@
 
         <h:form id="registerUserForm">
             <p:panelGrid styleClass="panelGridCenter">
-                <f:facet name="header">
-                    <p:row>
-                        <p:column colspan="2">Regisztráció</p:column>
-                    </p:row>
-                </f:facet>
+                <p:row>
+                    <p:column colspan="2">Regisztráció</p:column>
+                </p:row>
 
                 <p:row>
                     <p:column>Vezetéknév</p:column>
@@ -55,9 +53,7 @@
 
                 <p:row>
                     <p:column colspan="2" style="text-align: center">
-                        <p:commandButton value="Regisztrálok!" action="#{userAddBacking.registerUser}">
-                            <f:ajax execute="@form" render="@form" />
-                        </p:commandButton>
+                        <h:commandButton value="Regisztráció" type="submit" action="#{userAddBacking.registerUser}" />
                     </p:column>
                 </p:row>
             </p:panelGrid>

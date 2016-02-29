@@ -10,36 +10,43 @@
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
     <ui:define name="featured">
-
-        <form action="j_security_check" method="post">
-
+        <form method="POST" action="j_security_check">
             <p:panelGrid styleClass="panelGridCenter">
-                <f:facet name="header">
-                    <p:row>
-                        <p:column colspan="2">Bejelentkezés</p:column>
-                    </p:row>
-                </f:facet>
-
                 <p:row>
-                    <p:column>E-mail</p:column>
-                    <p:column><input type="text" name="j_username" /></p:column>
+                    <p:column colspan="2">Bejelentkezés</p:column>
                 </p:row>
 
                 <p:row>
-                    <p:column>Password</p:column>
-                    <p:column><input type="password" name="j_password" /></p:column>
-                </p:row>
+                    <p:column>
+                        <h:outputLabel for="j_username">E-mail:</h:outputLabel>
+                    </p:column>
 
-                <p:row>
-                    <p:column colspan="2" style="text-align: center">
-                        <input type="submit" value="Bejelentkezés" />
+                    <p:column>
+                        <p:inputText id="j_username" required="true" requiredMessage="Az 'email' mező kitöltése kötelező!" value="" />
                     </p:column>
                 </p:row>
-            </p:panelGrid>
 
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="j_password">Password:</h:outputLabel>
+                    </p:column>
+
+                    <p:column>
+                        <p:password id="j_password" required="true" requiredMessage="A 'jelszó' mező kitöltése kötelező!" value="" feedback="false" minLength="0" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <h:commandButton value="Bejelentkezés" type="submit" />
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
         </form>
 
         <br/>
+
         <p>
             Nincs még MoziÉlmény fiókja? <a href="#{request.contextPath}/public/pages/register.xhtml">Regisztráljon itt</a>, hogy ne maradjon le a legfrisebb hírekről és akciókról!
         </p>

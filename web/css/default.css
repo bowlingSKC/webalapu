@@ -629,3 +629,33 @@
 		color: #000;
 		background: red;
 	}
+
+	/*PRIMEFACES */
+
+	.ui-panelgrid>*>tr,
+	.ui-panelgrid .ui-panelgrid-cell
+	{
+		border-color : #6F6F6F;
+		background-color: #202020;
+		font-style: normal !important;
+	}
+
+	.ui-widget button
+	{
+		font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+		font-size: 1em;
+		background-color: white;
+		font-style: normal;
+	}
+
+	input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill
+	{
+		background-color: white;
+		background-image: none;
+		color: rgb(0, 0, 0);
+	}
+
+	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+	{
+		color: #000000;
+	}
