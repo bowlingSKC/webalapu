@@ -37,7 +37,8 @@ public class MovieActor {
     private boolean mainCharacter;
 
     public MovieActor() {
-
+        actor = new Actor();
+        movie = new Movie();
     }
 
     public MovieActor(Movie movie, Actor actor, String character, boolean mainCharacter) {
@@ -94,4 +95,5 @@ public class MovieActor {
     public void setMainCharacter(boolean mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
+
 }
