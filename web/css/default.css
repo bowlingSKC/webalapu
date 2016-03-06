@@ -672,3 +672,8 @@
 		height:400px;
 		margin:0 auto; /*center*/
 	}
+
+	.contactInformation table{
+		width:600px;
+		margin:0 auto; /*center*/
+	}

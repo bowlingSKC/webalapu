@@ -11,6 +11,26 @@
 <ui:composition template="/WEB-INF/template/main.xhtml">
 
     <ui:define name="featured">
+        <div class="title">
+            <h2>#{msg['page.title.contact']}</h2>
+        </div>
+
+        <div id="contactInformation" class="contactInformation">
+            <table>
+                <tr>
+                    <td>Address:</td>
+                    <td>Hungary, Veszprém József Attila utca 34/a</td>
+                </tr>
+
+                <tr>
+                    <td>Email:</td>
+                    <td>mozielmeny@gmail.com</td>
+                </tr>
+            </table>
+        </div>
+
+        <hr class="divider"/>
+
         <div id="googleMap" class="myGoogleMap" />
 
         <script type="text/javascript">
