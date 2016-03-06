@@ -35,14 +35,13 @@
                     </p:column>
 
                     <p:column headerText="Action">
-                        <h:commandLink value="Delete" action="#{newsBacking.delete}">
+                        <p:commandButton value="törlés" type="button" action="#{newsBacking.delete}">
                             <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
                             <f:ajax render=":newsForm:results" />
-                        </h:commandLink>
+                        </p:commandButton>
 
-                        <h:commandLink value="Edit" onclick="PF('editdialog').show();">
-                            <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
-                        </h:commandLink>
+                        <p:commandButton value="szerkesztés" type="button" onclick="PF('editdialog').show();" />
+
                     </p:column>
 
                 </p:dataTable>

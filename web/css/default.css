@@ -383,9 +383,9 @@
 
 	#header
 	{
-		position: relative;
+		position: relative; /*relative*/
 		float: left;
-		width: 300px;
+		width: 300px; /*300px*/
 		padding: 3em 0em;
 	}
 
@@ -430,47 +430,14 @@
 		border-radius: 50%;
 	}
 
-	.about img
-	{
-		display: inline-block;
-		margin-bottom: 1em;
-		border-radius: 50%;
-	}
-
-	.about
-	{
-		text-transform: uppercase;
-		text-align:center;
-		vertical-align: middle;
-	}
-
-	.paratlan
-	{
-
-	}
-
-	.paros
-	{
-
-	}
-
-	.divider
-	{
-		opacity: 0.2;
-		margin-top: 25px;
-		margin-bottom: 25px;
-	}
-
-
-
 /*********************************************************************************/
 /* Menu                                                                          */
 /*********************************************************************************/
 
 	#menu
 	{
-		position: relative;
-		width: inherit;
+		position: relative; /*relative*/
+		width: inherit; /*inherit*/
 	}
 
 	#menu ul
@@ -548,7 +515,6 @@
 
 	.panelGridCenter {
 		margin: 0 auto;
-
 	}
 
 /*********************************************************************************/
@@ -630,13 +596,50 @@
 		background: red;
 	}
 
-	/*PRIMEFACES */
+/*********************************************************************************/
+/* About                                                                         */
+/*********************************************************************************/
+
+	.about img
+	{
+		display: inline-block;
+		margin-bottom: 1em;
+		border-radius: 50%;
+	}
+
+	.about
+	{
+		text-transform: uppercase;
+		text-align:center;
+		vertical-align: middle;
+	}
+
+	.paratlan
+	{
+
+	}
+
+	.paros
+	{
+
+	}
+
+	.divider
+	{
+		opacity: 0.2;
+		margin-top: 25px;
+		margin-bottom: 25px;
+	}
+
+/*********************************************************************************/
+/* Primefaces                                                                    */
+/*********************************************************************************/
 
 	.ui-panelgrid>*>tr,
 	.ui-panelgrid .ui-panelgrid-cell
 	{
 		border-color : #6F6F6F;
-		background-color: #202020;
+		background-color: #444444;
 		font-style: normal !important;
 	}
 

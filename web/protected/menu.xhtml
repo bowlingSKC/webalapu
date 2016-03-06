@@ -8,7 +8,6 @@
 
 <ui:composition>
     <ul id="menu_list">
-
         <c:if test="#{request.isUserInRole('AppAdmin')}">
             <li class="item3${menuBacking.isActive('index.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getLoggedPath('index.xhtml')}" accesskey="1" title="">Főoldal</a></li>
             <li class="item4${menuBacking.isActive('news.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('news.xhtml')}" accesskey="2" title="">Hírek</a></li>
