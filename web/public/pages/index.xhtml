@@ -30,7 +30,7 @@
                         </a>
                     </p>
                     <h3>#{news.title}</h3>
-                    <p><a href="#">#{news.content}</a></p>
+                    <h:outputText escape="false" value="#{news.content}"/>
                 </li>
             </c:forEach>
         </ul>

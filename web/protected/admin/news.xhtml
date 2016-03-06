@@ -15,8 +15,9 @@
             <h2>Hírek szerkesztése</h2>
         </div>
 
-        <h:form id="newsForm">
+        <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
 
+        <h:form id="newsForm">
             <h:panelGroup id="results">
                 <p:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
 
@@ -31,22 +32,21 @@
                     </p:column>
 
                     <p:column headerText="Content">
-                        <h:outputText value="#{news.shortContent}" />
+                        <h:outputText escape="false" value="#{news.shortContent}" />
                     </p:column>
 
                     <p:column headerText="Action">
-                        <p:commandButton value="törlés" type="button" action="#{newsBacking.delete}">
+                        <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{newsBacking.delete}" styleClass="smallButton">
                             <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
                             <f:ajax render=":newsForm:results" />
                         </p:commandButton>
 
-                        <p:commandButton value="szerkesztés" type="button" onclick="PF('editdialog').show();" />
+                        <p:commandButton value="#{msg['button.label.edit']}" type="button" onclick="PF('editdialog').show();" styleClass="smallButton"/>
 
                     </p:column>
 
                 </p:dataTable>
             </h:panelGroup>
-
         </h:form>
 
         <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
@@ -96,8 +96,6 @@
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
-
-            <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
         </h:form>
 
     </ui:define>

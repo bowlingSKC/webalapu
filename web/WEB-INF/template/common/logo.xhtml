@@ -8,11 +8,12 @@
 
 <ui:composition>
     <c:if test="#{request.isUserInRole('AppAdmin') || request.isUserInRole('AppUser') || request.isUserInRole('AppManager')}">
-        <img src="#{request.contextPath}/images/jzhead.jpg" alt="" />
+        <img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" />
         <h3><h:form><h:commandLink styleClass="loginButton" value="Kijelentkezés" action="#{logoutBacking.logout}"/></h:form></h3>
     </c:if>
+
     <c:if test="#{!(request.isUserInRole('AppAdmin') || request.isUserInRole('AppUser') || request.isUserInRole('AppManager'))}">
-        <img src="#{request.contextPath}/images/jzhead.jpg" alt="" />
+        <img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" />
         <h2><a class="loginButton" href="#{request.contextPath}/protected/index.xhtml">Bejelentkezés</a></h2>
         <h3><a class="loginButton" href="#{request.contextPath}/public/pages/register.xhtml">Regisztráció</a></h3>
     </c:if>

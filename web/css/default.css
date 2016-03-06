@@ -662,3 +662,13 @@
 	{
 		color: #000000;
 	}
+
+	.smallButton .ui-button-text {
+		font-size:11px;
+	}
+
+	.myGoogleMap{
+		width:600px;
+		height:400px;
+		margin:0 auto; /*center*/
+	}
