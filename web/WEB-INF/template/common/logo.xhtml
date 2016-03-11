@@ -4,9 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition>
+    <h:form>
+        <h:commandLink action="#{localizationBacking.localeChanged('Hungarian')}">
+            <h:graphicImage value="/images/hungarian_icon_64x48.png" width="32" height="24" alt="hungarian" />
+        </h:commandLink>
+
+        <h:commandLink action="#{localizationBacking.localeChanged('English')}">
+            <h:graphicImage value="/images/brittish_icon_64x48.png" width="32" height="24" alt="english" />
+        </h:commandLink>
+    </h:form>
+
     <c:if test="#{request.isUserInRole('AppAdmin') || request.isUserInRole('AppUser') || request.isUserInRole('AppManager')}">
         <img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" />
         <h3><h:form><h:commandLink styleClass="loginButton" value="Kijelentkezés" action="#{logoutBacking.logout}"/></h:form></h3>

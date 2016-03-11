@@ -7,8 +7,8 @@
     <application>
 
         <locale-config>
-            <default-locale>hu</default-locale>
             <supported-locale>en</supported-locale>
+            <supported-locale>hu</supported-locale>
         </locale-config>
 
         <resource-bundle>

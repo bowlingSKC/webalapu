@@ -4,16 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition>
     <ul id="menu_list">
         <c:if test="#{request.isUserInRole('AppAdmin')}">
-            <li class="item3${menuBacking.isActive('index.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getLoggedPath('index.xhtml')}" accesskey="1" title="">Főoldal</a></li>
-            <li class="item4${menuBacking.isActive('news.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('news.xhtml')}" accesskey="2" title="">Hírek</a></li>
-            <li class="item5${menuBacking.isActive('users.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('users.xhtml')}" accesskey="3" title="">Felhasználók</a></li>
-            <li class="item6${menuBacking.isActive('cinemas.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('cinemas.xhtml')}" accesskey="4" title="">Mozik</a></li>
-            <li class="item7${menuBacking.isActive('movies.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('movies.xhtml')}" accesskey="5" title="">Filmek</a></li>
+            <li class="item3${menuBacking.isActive('index.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getLoggedPath('index.xhtml')}">#{msg['protectedMenu.label.index']}</a></li>
+            <li class="item4${menuBacking.isActive('news.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('news.xhtml')}">#{msg['protectedMenu.label.news']}</a></li>
+            <li class="item5${menuBacking.isActive('users.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('users.xhtml')}">#{msg['protectedMenu.label.users']}</a></li>
+            <li class="item6${menuBacking.isActive('cinemas.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('cinemas.xhtml')}">#{msg['protectedMenu.label.cinemas']}</a></li>
+            <li class="item7${menuBacking.isActive('movies.xhtml')}"><a href="#{request.contextPath}#{menuBacking.getAdminPath('movies.xhtml')}">#{msg['protectedMenu.label.movies']}</a></li>
         </c:if>
 
         <c:if test="#{request.isUserInRole('AppManager')}">

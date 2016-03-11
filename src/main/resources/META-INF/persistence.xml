@@ -3,6 +3,6 @@
     <persistence-unit name="cinemaUnit" transaction-type="JTA">
         <jta-data-source>cinema</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <properties />
+        <properties/>
     </persistence-unit>
 </persistence>

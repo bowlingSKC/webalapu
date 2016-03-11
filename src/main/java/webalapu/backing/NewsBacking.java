@@ -35,7 +35,6 @@ public class NewsBacking extends BaseBacking implements Serializable {
     @PostConstruct
     public void init() {
         top5News = newsManager.getTop5News();
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         news = newsManager.getAllNews();
     }
 
