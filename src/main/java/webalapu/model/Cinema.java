@@ -44,6 +44,10 @@ public class Cinema implements Serializable {
     @OneToMany(mappedBy = "cinema")
     private List<Hall> halls;
 
+    @OneToOne
+    @JoinColumn(name = "admin_id")
+    private User manager;
+
     public Cinema(){
 
     }
@@ -101,6 +105,22 @@ public class Cinema implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     @Override

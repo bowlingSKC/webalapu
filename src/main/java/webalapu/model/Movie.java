@@ -65,7 +65,7 @@ public class Movie implements Serializable {
 
     @JoinColumn(name = "director_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Director director;
+    private Director director = new Director();
 
     @ManyToMany
     @JoinTable(name = "movie_genre", joinColumns = {@JoinColumn(name = "movie_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")})

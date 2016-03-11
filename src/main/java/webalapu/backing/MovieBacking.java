@@ -1,5 +1,6 @@
 package webalapu.backing;
 
+import org.primefaces.event.FlowEvent;
 import webalapu.model.Movie;
 import webalapu.model.MovieActor;
 import webalapu.service.MovieManagerLocal;
@@ -8,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,9 +23,6 @@ public class MovieBacking extends BaseBacking implements Serializable {
     @EJB
     private MovieManagerLocal movieManager;
 
-    @Named
-    @Produces
-    @RequestScoped
     private Movie newMovie = new Movie();
 
     private List<Movie> allMovies;
@@ -33,24 +32,39 @@ public class MovieBacking extends BaseBacking implements Serializable {
     @PostConstruct
     public void init() {
         newMovie.setActors(new ArrayList<MovieActor>());
-        addCharacter();
+        addNewActor(null);
     }
 
-    public String addCharacter() {
+    public void addNewActor(ActionEvent actionEvent) {
         newMovie.getActors().add(new MovieActor());
-        System.out.println( "Number of Actors: " + newMovie.getActors().size() );
+        System.out.println("Actors number: " + newMovie.getActors().size());
+    }
+
+    public void removeActor(MovieActor item) {
+        newMovie.getActors().remove(item);
+    }
+
+    public String setNewMovieProperty() {
+        newMovie = new Movie();
         return null;
     }
 
-    public String removeCharacter(MovieActor item) {
-        newMovie.getActors().remove(item);
-        System.out.println( "Number of Actors: " + newMovie.getActors().size() );
-        return null;
+    public String onFlowProcess(FlowEvent event) {
+        return event.getNewStep();
     }
 
     public String retrieveMovieList() {
         allMovies = movieManager.getAllMovie();
         return null;
+    }
+
+    public String saveNewMovie() {
+        return null;
+    }
+
+    public List<String> completeDirectorName(String query) {
+
+        return new ArrayList<>();
     }
 
     public List<Movie> getAllMovies() {

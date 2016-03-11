@@ -96,4 +96,14 @@ public class MovieActor {
         this.mainCharacter = mainCharacter;
     }
 
+    @Override
+    public String toString() {
+        return "MovieActor{" +
+                "movieId=" + movieId +
+                ", actorId=" + actorId +
+                ", actor=" + actor.getName() +
+                ", character='" + character + '\'' +
+                ", mainCharacter=" + mainCharacter +
+                '}';
+    }
 }

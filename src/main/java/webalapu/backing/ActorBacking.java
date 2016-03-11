@@ -30,7 +30,7 @@ public class ActorBacking extends BaseBacking implements Serializable {
             System.err.println("null a lista");
         }
         for(Actor actor : getActors()) {
-            if( actor.getName().contains(query) ) {
+            if( actor.getName().toLowerCase().contains(query.toLowerCase()) ) {
                 filtered.add(actor.getName());
             }
         }

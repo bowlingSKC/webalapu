@@ -43,6 +43,9 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<UserGroup> userGroupList;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "manager")
+    private Cinema cinema;
+
     public User() {
 
     }
@@ -109,5 +112,13 @@ public class User implements Serializable {
 
     public void setUserGroupList(List<UserGroup> userGroupList) {
         this.userGroupList = userGroupList;
+    }
+
+    public Cinema getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(Cinema cinema) {
+        this.cinema = cinema;
     }
 }
