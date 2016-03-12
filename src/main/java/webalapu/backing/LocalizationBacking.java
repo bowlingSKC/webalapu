@@ -43,14 +43,4 @@ public class LocalizationBacking implements Serializable{
         }
 
     }
-
-    public String testLocale(){
-        System.out.println(locale.getDisplayLanguage());
-        return "";
-    }
-
-    public String setDefaultLocale(){
-        locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-        return "";
-    }
 }

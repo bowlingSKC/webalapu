@@ -43,26 +43,30 @@
                 <p:outputPanel id="cinemaDetail">
                     <p:tabView>
                         <p:tab title="Adatok">
-                            <p:panelGrid columns="2">
+                            <p:scrollPanel mode="native" style="width:inherit;height:500px">
+                                <p:panelGrid columns="2">
 
-                                <p:outputLabel for="name" value="Név:" />
-                                <h:outputText id="name" value="#{cinemaBacking.selectedCinema.name}" />
+                                    <p:outputLabel for="name" value="Név:" />
+                                    <h:outputText id="name" value="#{cinemaBacking.selectedCinema.name}" />
 
-                                <p:outputLabel for="city" value="Város:" />
-                                <h:outputText id="city" value="#{cinemaBacking.selectedCinema.city}" />
+                                    <p:outputLabel for="city" value="Város:" />
+                                    <h:outputText id="city" value="#{cinemaBacking.selectedCinema.city}" />
 
-                                <p:outputLabel for="address" value="Cím:" />
-                                <h:outputText id="address" value="#{cinemaBacking.selectedCinema.address}" />
+                                    <p:outputLabel for="address" value="Cím:" />
+                                    <h:outputText id="address" value="#{cinemaBacking.selectedCinema.address}" />
 
-                                <p:outputLabel for="admin" value="Kapcsolat:" />
-                                <h:outputLink id="admin" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
-                                    <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
-                                    <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
-                                </h:outputLink>
-                            </p:panelGrid>
+                                    <p:outputLabel for="admin" value="Kapcsolat:" />
+                                    <h:outputLink id="admin" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
+                                        <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
+                                        <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
+                                    </h:outputLink>
+                                </p:panelGrid>
 
-                            Google map ide
+                                <hr class="divider"/>
 
+                                #{mapBacking.setCinemaLocationOnMap(cinemaBacking.selectedCinema.address, cinemaBacking.selectedCinema.name)}
+                                <p:gmap center="#{mapBacking.cinemaMapCenter}" zoom="17" type="ROADMAP" styleClass="cinemaGoogleMap" model="#{mapBacking.cinemaMapModel}"/>
+                            </p:scrollPanel>
                         </p:tab>
                         <p:tab title="Vetítések">
 

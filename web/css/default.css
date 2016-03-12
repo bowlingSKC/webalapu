@@ -663,13 +663,24 @@
 		color: #000000;
 	}
 
+	.ui-panelgrid{
+		margin:0 auto; /*center*/
+	}
+
 	.smallButton .ui-button-text {
 		font-size:11px;
 	}
 
-	.myGoogleMap{
+	.contactGoogleMap{
 		width:600px;
 		height:400px;
+		margin:0 auto; /*center*/
+	}
+
+	.cinemaGoogleMap{
+		padding:25px;
+		width:75%;
+		height:200px;
 		margin:0 auto; /*center*/
 	}
 
