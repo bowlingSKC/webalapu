@@ -14,7 +14,6 @@ public class GeoCoder {
 
     public static LatLng getCoordinatesFromAddress(String address){
         try{
-            System.out.println("geocode start");
             Geocoder geocoder = new Geocoder();
             GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(address).setLanguage("en").getGeocoderRequest();
             GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);

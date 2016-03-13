@@ -685,3 +685,14 @@
 		width:600px;
 		margin:0 auto; /*center*/
 	}
+
+	.newItemButtonTemplate .ui-button-text
+	{
+		font-size: 15px;
+	}
+
+	.newItemButtonTemplate
+	{
+		vertical-align: middle;
+		float: left;
+	}

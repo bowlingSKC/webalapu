@@ -42,12 +42,17 @@ public class CinemaManager implements CinemaManagerLocal {
 
     @Override
     public void deleteCinema(Cinema cinema) throws CinemaNotFoundException{
+        System.out.println("törlendő cinema: " + cinema);
+
         Cinema dbCinema = em.find(Cinema.class, cinema.getId());
+
+        System.out.println("talált cinema: " + dbCinema);
+
         if( dbCinema == null ) {
             throw new CinemaNotFoundException();
         }
 
-        em.remove(cinema);
+        em.remove(dbCinema);
         em.flush();
     }
 

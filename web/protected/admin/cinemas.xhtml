@@ -18,43 +18,50 @@
                 <h2>#{msg['adminPage.title.cinemas']}</h2>
             </div>
 
-            <p:commandButton value="Új mozi" type="button" onclick="PF('addNewCinemaDialog').show();" />
-
             <h:form id="cinemaForm">
-                <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema" widgetVar="cinemasTable"
-                             emptyMessage="Nincs a keresésnek megfelelő mozi!"
-                             filteredValue="#{cinemaBacking.filteredCinemas}"
-                             paginator="true"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
+                <h:panelGroup id="results">
+                    <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema" widgetVar="cinemasTable"
+                                 emptyMessage="Nincs a keresésnek megfelelő mozi!"
+                                 filteredValue="#{cinemaBacking.filteredCinemas}"
+                                 paginator="true"
+                                 paginatorTemplate="{AddNewCinema} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}">
-                        <h:outputText value="#{cinema.name}" />
-                    </p:column>
+                        <f:facet name="{AddNewCinema}">
+                            <p:commandButton value="Új mozi" type="button" onclick="PF('addNewCinemaDialog').show();" icon="ui-icon-plusthick" styleClass="newItemButtonTemplate"/>
+                        </f:facet>
 
-                    <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}">
-                        <h:outputText value="#{cinema.city}" />
-                    </p:column>
+                        <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}">
+                            <h:outputText value="#{cinema.name}" />
+                        </p:column>
 
-                    <p:column headerText="" style="width: 32px; text-align: center">
-                        <p:commandButton update=":cinemaForm:cinemaDetail" oncomplete="PF('cinemaDialog').show()" icon="ui-icon-search" title="#{msg['public.cinemas.details']}">
-                            <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
-                        </p:commandButton>
-                    </p:column>
-                    <p:column headerText="Action">
-                        <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{cinemaBacking.delete}" styleClass="smallButton">
-                            <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
-                            <f:ajax render=":cinemaForm:results" />
-                        </p:commandButton>
-                    </p:column>
+                        <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}">
+                            <h:outputText value="#{cinema.city}" />
+                        </p:column>
 
-                </p:dataTable>
+                        <p:column headerText="Műveletek">
+                            <p:commandButton value="#{msg['button.label.details']}" update=":cinemaForm:cinemaDetail" oncomplete="PF('showCinemaDetailsDialog').show()" icon="ui-icon-search" title="#{msg['button.label.details']}" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                            </p:commandButton>
 
-                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="cinemaDialog" modal="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="#{msg['button.label.edit']}" update=":cinemaForm:cinemaDetailEdit" oncomplete="PF('editCinemaDialog').show()" icon="ui-icon-gear" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{cinemaBacking.delete}" icon="ui-icon-trash" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                                <f:ajax render=":cinemaForm:results" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="showCinemaDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
                     <p:outputPanel id="cinemaDetail">
                         <p:tabView>
                             <p:tab title="#{msg['public.cinemas.data']}">
-                                <h:form id="changeForm">
+                                <h:form>
                                     <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
 
                                         <p:outputLabel for="name" value="#{msg['public.cinemas.name']}:" />
@@ -77,12 +84,44 @@
                                             <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
                                             <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
                                         </h:outputLink>
+
                                     </p:panelGrid>
                                 </h:form>
                             </p:tab>
 
                             <p:tab title="#{msg['public.cinemas.screenings']}">
-                                Egy vetítés itt, egy vetítés ott
+                                Egy vetítés itt, egy vetítés ott, valaki megcsinálhatná
+                            </p:tab>
+                        </p:tabView>
+                    </p:outputPanel>
+                </p:dialog>
+
+                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="editCinemaDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="cinemaDetailEdit">
+                        <p:tabView>
+                            <p:tab title="#{msg['public.cinemas.data']}">
+                                <h:form>
+                                    <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
+
+                                        <p:outputLabel for="editName" value="#{msg['public.cinemas.name']}:" />
+                                        <h:inputText id="editName" value="#{cinemaBacking.selectedCinema.name}" />
+
+                                        <p:outputLabel for="editCity" value="#{msg['public.cinemas.city']}:" />
+                                        <h:inputText id="editCity" value="#{cinemaBacking.selectedCinema.city}" />
+
+                                        <p:outputLabel for="editAddress" value="#{msg['public.cinemas.address']}:" />
+                                        <h:inputText id="editAddress" value="#{cinemaBacking.selectedCinema.address}" />
+
+                                        <p:outputLabel for="adminEmail" value="#{msg['public.cinemas.contact']}:" />
+                                        <h:inputText id="adminEmail" value="" />
+
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Módosít" onclick="PF('editCinemaDialog').close();">
+                                                <f:ajax render=":cinemaForm:results" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:panelGrid>
+                                </h:form>
                             </p:tab>
                         </p:tabView>
                     </p:outputPanel>
@@ -91,11 +130,9 @@
             </h:form>
 
             <h:form>
-                <p:dialog header="Új mozi hozzáadása" widgetVar="addNewCinemaDialog" modal="true">
+                <p:dialog header="Új mozi hozzáadása" widgetVar="addNewCinemaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <h:form id="insertForm">
-
                         <h:panelGrid columns="2">
-
                             <h:outputLabel for="cinemaName" value="Név:" />
                             <h:inputText id="cinemaName" value="#{newCinema.name}" />
 
