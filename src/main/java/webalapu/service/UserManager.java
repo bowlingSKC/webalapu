@@ -2,7 +2,7 @@ package webalapu.service;
 
 import webalapu.model.User;
 import webalapu.model.UserGroup;
-import webalapu.service.exception.UserAlreadyException;
+import webalapu.service.exception.UserAlreadyExistsException;
 import webalapu.service.exception.UserNotFoundException;
 import webalapu.util.Constants;
 import webalapu.util.PasswordEncryption;
@@ -22,13 +22,13 @@ public class UserManager implements UserManagerLocal {
     EntityManager em;
 
     @Override
-    public void register(User newUser) throws UserAlreadyException {
+    public void register(User newUser) throws UserAlreadyExistsException {
         Query query = em.createQuery("SELECT user FROM User user WHERE user.email = :email");
         query.setParameter("email", newUser.getEmail());
 
         try {
             query.getSingleResult();
-            throw new UserAlreadyException();
+            throw new UserAlreadyExistsException();
         } catch (NoResultException ex) {
             // semmi baj nem történt, sőőt ...
         }

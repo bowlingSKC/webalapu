@@ -11,7 +11,7 @@
     <ui:composition template="/WEB-INF/template/main.xhtml">
         <ui:define name="featured">
             <div class="title">
-                <h2>Hírek szerkesztése</h2>
+                <h2>#{msg['adminPage.title.news']}</h2>
             </div>
 
             <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />

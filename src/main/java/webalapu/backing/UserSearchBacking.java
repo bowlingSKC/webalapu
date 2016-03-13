@@ -2,6 +2,7 @@ package webalapu.backing;
 
 import webalapu.model.User;
 import webalapu.service.UserManagerLocal;
+import webalapu.service.exception.UserNotFoundException;
 
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -28,6 +29,17 @@ public class UserSearchBacking extends BaseBacking implements Serializable {
     public String update() {
         //TODO: felhasználó adatainak módosítása
         return null;
+    }
+
+    public User getUserById(String email){
+        User user = new User();
+        try {
+            user = userManager.getUserById(email);
+        } catch (UserNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        return user;
     }
 
     public List<User> getUserList() {

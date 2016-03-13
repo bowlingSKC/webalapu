@@ -1,9 +1,20 @@
 package webalapu.backing;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.primefaces.model.map.LatLng;
 import webalapu.model.Cinema;
+import webalapu.model.User;
 import webalapu.service.CinemaManagerLocal;
+import webalapu.service.UserManagerLocal;
+import webalapu.service.exception.CinemaAlreadyExistsException;
+import webalapu.service.exception.CinemaNotFoundException;
+import webalapu.service.exception.UserNotFoundException;
+import webalapu.util.GeoCoder;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,11 +27,26 @@ public class CinemaBacking extends BaseBacking implements Serializable {
     @EJB
     private CinemaManagerLocal cinemaManager;
 
+    @EJB
+    private UserManagerLocal userManager;
+
     private List<Cinema> cinemas;
     private Cinema selectedCinema;
 
+    private List<Cinema> filteredCinemas;
+
+    @Named
+    @Produces
+    @RequestScoped
+    private Cinema newCinema = new Cinema();
+
+    @PostConstruct
+    public void init() {
+        cinemas = cinemaManager.getAllCinemas();
+    }
+
     public void getAllCinema() {
-        cinemas = cinemaManager.getAllCinema();
+        cinemas = cinemaManager.getAllCinemas();
     }
 
     public List<Cinema> getCinemas() {
@@ -37,5 +63,60 @@ public class CinemaBacking extends BaseBacking implements Serializable {
 
     public void setSelectedCinema(Cinema selectedCinema) {
         this.selectedCinema = selectedCinema;
+    }
+
+    public List<Cinema> getFilteredCinemas() {
+        return filteredCinemas;
+    }
+
+    public void setFilteredCinemas(List<Cinema> filteredCinemas) {
+        this.filteredCinemas = filteredCinemas;
+    }
+
+    public Cinema getNewCinema() {
+        return newCinema;
+    }
+
+    public void setNewCinema(Cinema newCinema){
+        this.newCinema = newCinema;
+    }
+
+    public String delete() {
+        try {
+            Cinema selectedCinema = getSelectedCinema();
+
+            cinemaManager.deleteCinema(selectedCinema);
+            cinemas.remove(selectedCinema);
+        } catch (CinemaNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public String insert(String managerEmail) {
+        try{
+            LatLng coordinates = GeoCoder.getCoordinatesFromAddress(newCinema.getAddress());
+            newCinema.setLatitude(coordinates.getLat());
+            newCinema.setLongitude(coordinates.getLng());
+
+            User manager = userManager.getUserById("moziadmin@moziadmin.hu");
+            newCinema.setManager(manager);
+
+            cinemaManager.addNewCinema(newCinema);
+            cinemas.add(newCinema);
+
+            newCinema = new Cinema();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        } catch(CinemaAlreadyExistsException ex){
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String update() {
+        System.out.println( "Updated: " + selectedCinema );
+        return null;
     }
 }

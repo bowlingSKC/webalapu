@@ -60,7 +60,7 @@
 
                                     <hr class="divider"/>
 
-                                    #{mapBacking.setCinemaLocationOnMap(cinemaBacking.selectedCinema.address, cinemaBacking.selectedCinema.name)}
+                                    #{mapBacking.setCinemaLocationOnMap(cinemaBacking.selectedCinema.name, cinemaBacking.selectedCinema.latitude, cinemaBacking.selectedCinema.longitude)}
                                     <p:gmap center="#{mapBacking.cinemaMapCenter}" zoom="17" type="ROADMAP" styleClass="cinemaGoogleMap" model="#{mapBacking.cinemaMapModel}"/>
                                 </p:scrollPanel>
                             </p:tab>

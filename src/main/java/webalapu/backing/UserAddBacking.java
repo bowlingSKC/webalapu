@@ -2,7 +2,7 @@ package webalapu.backing;
 
 import webalapu.model.User;
 import webalapu.service.UserManagerLocal;
-import webalapu.service.exception.UserAlreadyException;
+import webalapu.service.exception.UserAlreadyExistsException;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -36,7 +36,7 @@ public class UserAddBacking extends BaseBacking implements Serializable {
             userManager.register(newUser);
             infoMessage = "Sikeres regsisztrálás!";
             newUser = new User();
-        } catch (UserAlreadyException ex) {
+        } catch (UserAlreadyExistsException ex) {
             infoMessage = "Ilyen E-mail cím már regisztálva van a rendszerben!";
         } catch (Exception ex) {
             getContext().addMessage(null, new FacesMessage("Hiba történt a regisztrálás közben!"));

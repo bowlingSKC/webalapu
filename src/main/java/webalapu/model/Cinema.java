@@ -38,6 +38,16 @@ public class Cinema implements Serializable {
     private String address;
 
     @Basic(optional = false)
+    @NotNull
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "longitude")
+    private double longitude;
+
+    @Basic(optional = false)
     @Column(name = "description")
     private String description;
 
@@ -52,18 +62,22 @@ public class Cinema implements Serializable {
 
     }
 
-    public Cinema(Integer id, String name, String city, String address, String description){
+    public Cinema(Integer id, String name, String city, String address, double latitude, double longitude, String description){
         this.id = id;
         this.name = name;
         this.city = city;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
     }
 
-    public Cinema(String name, String city, String address, String description){
+    public Cinema(String name, String city, String address, double latitude, double longitude, String description){
         this.name = name;
         this.city = city;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
     }
 
@@ -98,6 +112,14 @@ public class Cinema implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public double getLatitude(){ return latitude; }
+
+    public void setLatitude(double latitude){ this.latitude = latitude; }
+
+    public double getLongitude(){ return longitude; }
+
+    public void setLongitude(double longitude){ this.longitude = longitude; }
 
     public String getDescription() {
         return description;

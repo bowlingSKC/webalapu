@@ -8,7 +8,6 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-import webalapu.util.GeoCoder;
 
 @ManagedBean(name = "mapBacking")
 public class GMapBacking implements Serializable {
@@ -26,11 +25,8 @@ public class GMapBacking implements Serializable {
         cinemaMapModel = new DefaultMapModel();
     }
 
-    public void setCinemaLocationOnMap(String address, String cinemaName){
-        LatLng coordinates = new LatLng(47.085166, 17.900768);
-        GeoCoder.getCoordinatesFromAddress(address);
-
-
+    public void setCinemaLocationOnMap(String cinemaName, double latitude, double longitude){
+        LatLng coordinates = new LatLng(latitude, longitude);
         setCinemaMapCenterFromLatLng(coordinates);
         cinemaMapModel.addOverlay(new Marker(coordinates, cinemaName));
     }

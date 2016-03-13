@@ -9,12 +9,118 @@
       xmlns:d="http://java.sun.com/jsf/core">
 
     <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{cinemaBacking.getAllCinema}" />
+        </ui:define>
+
         <ui:define name="featured">
             <div class="title">
                 <h2>#{msg['adminPage.title.cinemas']}</h2>
             </div>
 
-            Ide jön a mozik és hülyeségeik ...
+            <p:commandButton value="Új mozi" type="button" onclick="PF('addNewCinemaDialog').show();" />
+
+            <h:form id="cinemaForm">
+                <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema" widgetVar="cinemasTable"
+                             emptyMessage="Nincs a keresésnek megfelelő mozi!"
+                             filteredValue="#{cinemaBacking.filteredCinemas}"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+
+                    <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}">
+                        <h:outputText value="#{cinema.name}" />
+                    </p:column>
+
+                    <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}">
+                        <h:outputText value="#{cinema.city}" />
+                    </p:column>
+
+                    <p:column headerText="" style="width: 32px; text-align: center">
+                        <p:commandButton update=":cinemaForm:cinemaDetail" oncomplete="PF('cinemaDialog').show()" icon="ui-icon-search" title="#{msg['public.cinemas.details']}">
+                            <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText="Action">
+                        <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{cinemaBacking.delete}" styleClass="smallButton">
+                            <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                            <f:ajax render=":cinemaForm:results" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="cinemaDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="cinemaDetail">
+                        <p:tabView>
+                            <p:tab title="#{msg['public.cinemas.data']}">
+                                <h:form id="changeForm">
+                                    <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
+
+                                        <p:outputLabel for="name" value="#{msg['public.cinemas.name']}:" />
+                                        <h:outputText id="name" value="#{cinemaBacking.selectedCinema.name}" />
+
+                                        <p:outputLabel for="city" value="#{msg['public.cinemas.city']}:" />
+                                        <h:outputText id="city" value="#{cinemaBacking.selectedCinema.city}" />
+
+                                        <p:outputLabel for="address" value="#{msg['public.cinemas.address']}:" />
+                                        <h:outputText id="address" value="#{cinemaBacking.selectedCinema.address}" />
+
+                                        <p:outputLabel for="lat" value="#{msg['adminPage.cinemas.lat']}:" />
+                                        <h:outputText id="lat" value="#{cinemaBacking.selectedCinema.latitude}" />
+
+                                        <p:outputLabel for="lng" value="#{msg['adminPage.cinemas.lng']}:" />
+                                        <h:outputText id="lng" value="#{cinemaBacking.selectedCinema.longitude}" />
+
+                                        <p:outputLabel for="admin" value="#{msg['public.cinemas.contact']}:" />
+                                        <h:outputLink id="admin" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
+                                            <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
+                                            <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
+                                        </h:outputLink>
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:tab>
+
+                            <p:tab title="#{msg['public.cinemas.screenings']}">
+                                Egy vetítés itt, egy vetítés ott
+                            </p:tab>
+                        </p:tabView>
+                    </p:outputPanel>
+                </p:dialog>
+
+            </h:form>
+
+            <h:form>
+                <p:dialog header="Új mozi hozzáadása" widgetVar="addNewCinemaDialog" modal="true">
+                    <h:form id="insertForm">
+
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel for="cinemaName" value="Név:" />
+                            <h:inputText id="cinemaName" value="#{newCinema.name}" />
+
+                            <h:outputLabel for="cinemaCity" value="Város:" />
+                            <h:inputText id="cinemaCity" value="#{newCinema.city}" />
+
+                            <h:outputLabel for="cinemaAddress" value="Cím:" />
+                            <h:inputText id="cinemaAddress" value="#{newCinema.address}" />
+
+                            <h:outputLabel for="cinemaDesc" value="Leírás:" />
+                            <h:inputText id="cinemaDesc" value="#{newCinema.description}" />
+
+                            <h:outputLabel for="cinemaManagerEmail" value="Manager:" />
+                            <h:inputText id="cinemaManagerEmail"/>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Hozzáad" actionListener="#{cinemaBacking.insert(param['namingContainer:cinemaManagerEmail'])}" onclick="PF('addNewCinemaDialog').close();">
+                                    <f:ajax render=":cinemaForm:results" />
+                                </p:commandButton>
+                            </f:facet>
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </h:form>
 
         </ui:define>
 
