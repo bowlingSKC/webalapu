@@ -8,56 +8,55 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="featured">
+            <form method="POST" action="j_security_check">
+                <p:panelGrid styleClass="panelGridCenter">
+                    <p:row>
+                        <p:column colspan="2">#{msg['label.login']}</p:column>
+                    </p:row>
 
-    <ui:define name="featured">
-        <form method="POST" action="j_security_check">
-            <p:panelGrid styleClass="panelGridCenter">
-                <p:row>
-                    <p:column colspan="2">Bejelentkezés</p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel for="j_username">#{msg['public.login.email']}:</h:outputLabel>
+                        </p:column>
 
-                <p:row>
-                    <p:column>
-                        <h:outputLabel for="j_username">E-mail:</h:outputLabel>
-                    </p:column>
+                        <p:column>
+                            <p:inputText id="j_username" required="true" requiredMessage="Az 'email' mező kitöltése kötelező!" value="" />
+                        </p:column>
+                    </p:row>
 
-                    <p:column>
-                        <p:inputText id="j_username" required="true" requiredMessage="Az 'email' mező kitöltése kötelező!" value="" />
-                    </p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel for="j_password">#{msg['public.login.password']}:</h:outputLabel>
+                        </p:column>
 
-                <p:row>
-                    <p:column>
-                        <h:outputLabel for="j_password">Password:</h:outputLabel>
-                    </p:column>
+                        <p:column>
+                            <p:password id="j_password" required="true" requiredMessage="A 'jelszó' mező kitöltése kötelező!" value="" feedback="false" minLength="0" />
+                        </p:column>
+                    </p:row>
 
-                    <p:column>
-                        <p:password id="j_password" required="true" requiredMessage="A 'jelszó' mező kitöltése kötelező!" value="" feedback="false" minLength="0" />
-                    </p:column>
-                </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <h:commandButton value="#{msg['label.login']}" type="submit" />
+                        </p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column colspan="2">
-                        <h:commandButton value="Bejelentkezés" type="submit" />
-                    </p:column>
-                </p:row>
+                </p:panelGrid>
+            </form>
 
-            </p:panelGrid>
-        </form>
+            <br/>
 
-        <br/>
+            <p>
+                Nincs még MoziÉlmény fiókja? <a href="#{request.contextPath}/public/pages/register.xhtml">Regisztráljon itt</a>, hogy ne maradjon le a legfrisebb hírekről és akciókról!
+            </p>
 
-        <p>
-            Nincs még MoziÉlmény fiókja? <a href="#{request.contextPath}/public/pages/register.xhtml">Regisztráljon itt</a>, hogy ne maradjon le a legfrisebb hírekről és akciókról!
-        </p>
+        </ui:define>
 
-    </ui:define>
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

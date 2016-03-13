@@ -513,7 +513,8 @@
 		background: #2a2a2a;
 	}
 
-	.panelGridCenter {
+	.panelGridCenter
+	{
 		margin: 0 auto;
 	}
 
@@ -612,16 +613,7 @@
 		text-transform: uppercase;
 		text-align:center;
 		vertical-align: middle;
-	}
-
-	.paratlan
-	{
-
-	}
-
-	.paros
-	{
-
+		margin:0 auto
 	}
 
 	.divider
@@ -663,28 +655,33 @@
 		color: #000000;
 	}
 
-	.ui-panelgrid{
+	.ui-panelgrid
+	{
 		margin:0 auto; /*center*/
 	}
 
-	.smallButton .ui-button-text {
+	.smallButton .ui-button-text
+	{
 		font-size:11px;
 	}
 
-	.contactGoogleMap{
+	.contactGoogleMap
+	{
 		width:600px;
 		height:400px;
 		margin:0 auto; /*center*/
 	}
 
-	.cinemaGoogleMap{
+	.cinemaGoogleMap
+	{
 		padding:25px;
 		width:75%;
 		height:200px;
 		margin:0 auto; /*center*/
 	}
 
-	.contactInformation table{
+	.contactInformation
+	{
 		width:600px;
 		margin:0 auto; /*center*/
 	}

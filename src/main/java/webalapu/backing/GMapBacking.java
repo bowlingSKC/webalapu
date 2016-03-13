@@ -1,8 +1,6 @@
 package webalapu.backing;
 
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
@@ -10,6 +8,7 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
+import webalapu.util.GeoCoder;
 
 @ManagedBean(name = "mapBacking")
 public class GMapBacking implements Serializable {
@@ -28,17 +27,12 @@ public class GMapBacking implements Serializable {
     }
 
     public void setCinemaLocationOnMap(String address, String cinemaName){
-        LatLng coordinates = geocode(address);
+        LatLng coordinates = new LatLng(47.085166, 17.900768);
+        GeoCoder.getCoordinatesFromAddress(address);
+
+
         setCinemaMapCenterFromLatLng(coordinates);
         cinemaMapModel.addOverlay(new Marker(coordinates, cinemaName));
-    }
-
-    private LatLng geocode(String address){
-        LatLng coordinates = new LatLng(47.085166, 17.900768);
-
-        //TODO: implement geocoding here
-
-        return coordinates;
     }
 
     private void setCinemaMapCenterFromLatLng(LatLng coordinates){
@@ -53,7 +47,6 @@ public class GMapBacking implements Serializable {
     public MapModel getCinemaMapModel(){
         return cinemaMapModel;
     }
-
 
     public String getCinemaMapCenter() {
         return cinemaMapCenter;

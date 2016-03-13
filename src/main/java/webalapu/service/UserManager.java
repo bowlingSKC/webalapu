@@ -107,6 +107,6 @@ public class UserManager implements UserManagerLocal {
     }
 
     private void mergeUserAttrs(User user, User updateUser) {
-        // TODO: implmentálni
+        // TODO: implementálni
     }
 }

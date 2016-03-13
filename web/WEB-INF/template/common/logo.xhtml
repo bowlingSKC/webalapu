@@ -19,14 +19,14 @@
     </h:form>
 
     <c:if test="#{request.isUserInRole('AppAdmin') || request.isUserInRole('AppUser') || request.isUserInRole('AppManager')}">
-        <img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" />
-        <h3><h:form><h:commandLink styleClass="loginButton" value="Kijelentkezés" action="#{logoutBacking.logout}"/></h:form></h3>
+        <img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" />
+        <h3><h:form><h:commandLink styleClass="loginButton" value="#{msg['label.logout']}" action="#{logoutBacking.logout}"/></h:form></h3>
     </c:if>
 
     <c:if test="#{!(request.isUserInRole('AppAdmin') || request.isUserInRole('AppUser') || request.isUserInRole('AppManager'))}">
-        <img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" />
-        <h2><a class="loginButton" href="#{request.contextPath}/protected/index.xhtml">Bejelentkezés</a></h2>
-        <h3><a class="loginButton" href="#{request.contextPath}/public/pages/register.xhtml">Regisztráció</a></h3>
+        <img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" />
+        <h2><a class="loginButton" href="#{request.contextPath}/protected/index.xhtml">#{msg['label.login']}</a></h2>
+        <h3><a class="loginButton" href="#{request.contextPath}/public/pages/register.xhtml">#{msg['label.registration']}</a></h3>
     </c:if>
 </ui:composition>
 

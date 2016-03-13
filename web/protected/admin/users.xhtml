@@ -5,96 +5,94 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:d="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:d="http://java.sun.com/jsf/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{userSearchBacking.retrieveUserList}" />
+        </ui:define>
 
-    <ui:define name="metadata">
-        <f:event type="preRenderView" listener="#{userSearchBacking.retrieveUserList}" />
-    </ui:define>
+        <ui:define name="featured">
+            <div class="title">
+                <h2>Felhasználók</h2>
+            </div>
 
-    <ui:define name="featured">
+            <h:form id="usersForm">
+                <p:dataTable value="#{userSearchBacking.userList}" var="user" widgetVar="usersTable"
+                             emptyMessage="Nincs a keresésnek megfelelő felhasználó!"
+                             filteredValue="#{userSearchBacking.filteredUsers}"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
 
-        <div class="title">
-            <h2>Felhasználók</h2>
-        </div>
+                    <p:column headerText="Vezetéknév" sortBy="#{user.firstName}" filterBy="#{user.firstName}" filterMatchMode="contains">
+                        <h:outputText value="#{user.firstName}" />
+                    </p:column>
 
-        <h:form id="usersForm">
-            <p:dataTable value="#{userSearchBacking.userList}" var="user" widgetVar="usersTable"
-                         emptyMessage="Nincs a keresésnek megfelelő felhasználó!"
-                         filteredValue="#{userSearchBacking.filteredUsers}"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Keresztnév" sortBy="#{user.lastName}" filterBy="#{user.firstName}" filterMatchMode="contains">
+                        <h:outputText value="#{user.lastName}" />
+                    </p:column>
 
-                <p:column headerText="Vezetéknév" sortBy="#{user.firstName}" filterBy="#{user.firstName}" filterMatchMode="contains">
-                    <h:outputText value="#{user.firstName}" />
-                </p:column>
+                    <p:column headerText="E-mail" sortBy="#{user.email}" filterBy="#{user.firstName}" filterMatchMode="contains">
+                        <h:outputText value="#{user.email}" />
+                    </p:column>
 
-                <p:column headerText="Keresztnév" sortBy="#{user.lastName}" filterBy="#{user.firstName}" filterMatchMode="contains">
-                    <h:outputText value="#{user.lastName}" />
-                </p:column>
+                    <p:column style="width: 32px;text-align: center">
+                        <p:commandButton update=":usersForm:userDetail" oncomplete="PF('userDialog').show()" icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{user}" target="#{userSearchBacking.selectedUser}" />
+                        </p:commandButton>
+                    </p:column>
 
-                <p:column headerText="E-mail" sortBy="#{user.email}" filterBy="#{user.firstName}" filterMatchMode="contains">
-                    <h:outputText value="#{user.email}" />
-                </p:column>
+                </p:dataTable>
 
-                <p:column style="width: 32px;text-align: center">
-                    <p:commandButton update=":usersForm:userDetail" oncomplete="PF('userDialog').show()" icon="ui-icon-search" title="View">
-                        <f:setPropertyActionListener value="#{user}" target="#{userSearchBacking.selectedUser}" />
-                    </p:commandButton>
-                </p:column>
+                <p:dialog header="Felhasználó megtekintése" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="userDetail">
+                        <p:tabView>
+                            <p:tab title="Alapadatok">
+                                <h:form id="changeForm">
+                                    <p:panelGrid columns="2" rendered="#{not empty userSearchBacking.selectedUser}">
 
-            </p:dataTable>
+                                        <h:outputLabel for="firstNameField" value="Vezetéknév:" />
+                                        <h:inputText id="firstNameField" value="#{userSearchBacking.selectedUser.firstName}" />
 
-            <p:dialog header="Felhasználó megtekintése" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="userDetail">
-                    <p:tabView>
-                        <p:tab title="Alapadatok">
-                            <h:form id="changeForm">
-                                <p:panelGrid columns="2" rendered="#{not empty userSearchBacking.selectedUser}">
+                                        <h:outputLabel for="lastNameField" value="Vezetéknév:" />
+                                        <h:inputText id="lastNameField" value="#{userSearchBacking.selectedUser.lastName}" />
 
-                                    <h:outputLabel for="firstNameField" value="Vezetéknév:" />
-                                    <h:inputText id="firstNameField" value="#{userSearchBacking.selectedUser.firstName}" />
+                                        <h:outputLabel for="emailField" value="E-mail:" />
+                                        <h:inputText id="emailField" value="#{userSearchBacking.selectedUser.email}" />
 
-                                    <h:outputLabel for="lastNameField" value="Vezetéknév:" />
-                                    <h:inputText id="lastNameField" value="#{userSearchBacking.selectedUser.lastName}" />
+                                        <h:outputLabel for="creditsField" value="Kreditek:" />
+                                        <h:inputText id="creditsField" value="#{userSearchBacking.selectedUser.credit}" />
 
-                                    <h:outputLabel for="emailField" value="E-mail:" />
-                                    <h:inputText id="emailField" value="#{userSearchBacking.selectedUser.email}" />
+                                        <h:outputLabel for="roleField" value="Jogosultság" />
+                                        <h:panelGrid id="roleField" columns="1" style="margin-bottom: 10px;" cellpadding="5">
+                                            <p:selectOneRadio id="role" value="#{userSearchBacking.selectedUser.userGroupList.get(0).groupId}" columns="1">
+                                                <f:selectItem itemLabel="Felhasználó" itemValue="1" /><br/>
+                                                <f:selectItem itemLabel="Menedzser" itemValue="2" /><br/>
+                                                <f:selectItem itemLabel="Adminisztrátor" itemValue="3" />
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+                                        <p:commandButton action="#{userSearchBacking.update}" value="Mentés" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:tab>
+                            <p:tab title="Jegyek">
+                                A felhasználó foglalt jegyei valahogy szépen ábrázolva
+                            </p:tab>
+                        </p:tabView>
 
-                                    <h:outputLabel for="creditsField" value="Kreditek:" />
-                                    <h:inputText id="creditsField" value="#{userSearchBacking.selectedUser.credit}" />
+                    </p:outputPanel>
+                </p:dialog>
 
-                                    <h:outputLabel for="roleField" value="Jogosultság" />
-                                    <h:panelGrid id="roleField" columns="1" style="margin-bottom: 10px;" cellpadding="5">
-                                        <p:selectOneRadio id="role" value="#{userSearchBacking.selectedUser.userGroupList.get(0).groupId}" columns="1">
-                                            <f:selectItem itemLabel="Felhasználó" itemValue="1" /><br/>
-                                            <f:selectItem itemLabel="Menedzser" itemValue="2" /><br/>
-                                            <f:selectItem itemLabel="Adminisztrátor" itemValue="3" />
-                                        </p:selectOneRadio>
-                                    </h:panelGrid>
-                                    <p:commandButton action="#{userSearchBacking.update}" value="Mentés" />
-                                </p:panelGrid>
-                            </h:form>
-                        </p:tab>
-                        <p:tab title="Jegyek">
-                            A felhasználó foglalt jegyei valahogy szépen ábrázolva
-                        </p:tab>
-                    </p:tabView>
+            </h:form>
 
-                </p:outputPanel>
-            </p:dialog>
+        </ui:define>
 
-        </h:form>
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

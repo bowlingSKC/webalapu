@@ -41,6 +41,5 @@ public class LocalizationBacking implements Serializable{
                 FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
             }
         }
-
     }
 }

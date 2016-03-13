@@ -5,60 +5,58 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:d="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:d="http://java.sun.com/jsf/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{movieBacking.retrieveMovieList}" />
+            <f:event type="preRenderView" listener="#{actorBacking.retrieveActorList}" />
+        </ui:define>
 
-    <ui:define name="metadata">
-        <f:event type="preRenderView" listener="#{movieBacking.retrieveMovieList}" />
-        <f:event type="preRenderView" listener="#{actorBacking.retrieveActorList}" />
-    </ui:define>
+        <ui:define name="featured">
+            <div class="title">
+                <h2>#{msg['adminPage.title.movies']}</h2>
+            </div>
 
-    <ui:define name="featured">
+            <h:form id="moviesForm">
+                <p:dataTable value="#{movieBacking.allMovies}" var="movie" widgetVar="moviesTable"
+                             emptyMessage="Nincs a keresésnek megfelelő film!"
+                             filteredValue="#{movieBacking.filteredMovies}"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20">
 
-        <div class="title">
-            <h2>Filmek</h2>
-        </div>
+                    <p:column headerText="Cím" sortBy="#{movie.title}" filterBy="#{movie.title}" filterMatchMode="contains">
+                        <h:outputText value="#{movie.title}" />
+                    </p:column>
 
-        <h:form id="moviesForm">
+                    <p:column headerText="Rendező" sortBy="#{movie.director.name}" filterBy="#{movie.director.name}" filterMatchMode="contains">
+                        <h:outputText value="#{movie.director.name}" />
+                    </p:column>
 
-            <p:dataTable value="#{movieBacking.allMovies}" var="movie" widgetVar="moviesTable"
-                         emptyMessage="Nincs a keresésnek megfelelő film!"
-                         filteredValue="#{movieBacking.filteredMovies}"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15,20">
+                    <p:column headerText="Preimere" sortBy="#{movie.premiere}" filterBy="#{movie.premiere}" filterMatchMode="contains">
+                        <h:outputText value="#{movie.premiere}">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </h:outputText>
+                    </p:column>
 
-                <p:column headerText="Cím" sortBy="#{movie.title}" filterBy="#{movie.title}" filterMatchMode="contains">
-                    <h:outputText value="#{movie.title}" />
-                </p:column>
+                    <p:column style="width: 32px; text-align: center;">
+                        <p:commandButton oncomplete="PF('movieDialog').show()" icon="ui-icon-search" title="View" />
+                    </p:column>
 
-                <p:column headerText="Rendező" sortBy="#{movie.director.name}" filterBy="#{movie.director.name}" filterMatchMode="contains">
-                    <h:outputText value="#{movie.director.name}" />
-                </p:column>
+                </p:dataTable>
 
-                <p:column headerText="Preimere" sortBy="#{movie.premiere}" filterBy="#{movie.premiere}" filterMatchMode="contains">
-                    <h:outputText value="#{movie.premiere}">
-                        <f:convertDateTime pattern="yyyy-MM-dd" />
-                    </h:outputText>
-                </p:column>
+                <p:link outcome="newMovie" value="Új film hozzáadása" />
 
-                <p:column style="width: 32px; text-align: center;">
-                    <p:commandButton oncomplete="PF('movieDialog').show()" icon="ui-icon-search" title="View" />
-                </p:column>
+            </h:form>
 
-            </p:dataTable>
+        </ui:define>
 
-            <p:link outcome="newMovie" value="Új film hozzáadása" />
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-        </h:form>
-
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

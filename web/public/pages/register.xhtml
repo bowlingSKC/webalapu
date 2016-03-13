@@ -8,72 +8,69 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="featured">
+            <p>Az alábbi adatok kitöltése kötelező:</p>
 
-    <ui:define name="featured">
-        <p>
-            Az alábbi adatok kitöltése kötelező:
-        </p>
+            <h:form id="registerUserForm">
+                <p:panelGrid styleClass="panelGridCenter">
+                    <p:row>
+                        <p:column colspan="2">#{msg['label.registration']}</p:column>
+                    </p:row>
 
-        <h:form id="registerUserForm">
-            <p:panelGrid styleClass="panelGridCenter">
-                <p:row>
-                    <p:column colspan="2">Regisztráció</p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>#{msg['public.registration.firstname']}</p:column>
+                        <p:column><p:inputText id="firstname" value="#{newUser.firstName}" required="true" requiredMessage="A 'Vezetéknév' mező kitöltése kötelező" /></p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column>Vezetéknév</p:column>
-                    <p:column><p:inputText id="firstname" value="#{newUser.firstName}" required="true" requiredMessage="A 'Vezetéknév' mező kitöltése kötelező" /></p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>#{msg['public.registration.lastname']}</p:column>
+                        <p:column><p:inputText id="lastname" value="#{newUser.lastName}" required="true" requiredMessage="A 'Keresztnév' mező kitöltése kötelező" /></p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column>Keresztnév</p:column>
-                    <p:column><p:inputText id="lastname" value="#{newUser.lastName}" required="true" requiredMessage="A 'Keresztnév' mező kitöltése kötelező" /></p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>#{msg['public.registration.email']}</p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{newUser.email}" required="true" requiredMessage="Az 'E-mail' mező kitöltése kötelező">
+                                <f:validator validatorId="webalapu.util.validators.EmailValidator" />
+                            </p:inputText>
+                        </p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column>E-mail cím</p:column>
-                    <p:column>
-                        <p:inputText id="email" value="#{newUser.email}" required="true" requiredMessage="Az 'E-mail' mező kitöltése kötelező">
-                            <f:validator validatorId="webalapu.util.validators.EmailValidator" />
-                        </p:inputText>
-                    </p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>#{msg['public.registration.password']}</p:column>
+                        <p:column>
+                            <p:password id="password" value="#{newUser.password}" required="true" requiredMessage="A 'Jelszó' mező kitöltése kötelező" />
+                        </p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column>Jelszó</p:column>
-                    <p:column>
-                        <p:password id="password" value="#{newUser.password}" required="true" requiredMessage="A 'Jelszó' mező kitöltése kötelező" />
-                    </p:column>
-                </p:row>
+                    <p:row>
+                        <p:column>#{msg['public.registration.passwordAgain']}</p:column>
+                        <p:column><p:password id="password2" value="#{newUser.password2}" required="true" requiredMessage="A jelszó megerősítése kötelező" /></p:column>
+                    </p:row>
 
-                <p:row>
-                    <p:column>Jelszó mégegyszer</p:column>
-                    <p:column><p:password id="password2" value="#{newUser.password2}" required="true" requiredMessage="A jelszó megerősítése kötelező" /></p:column>
-                </p:row>
+                    <p:row>
+                        <p:column colspan="2" style="text-align: center">
+                            <h:commandButton value="#{msg['label.registration']}" type="submit" action="#{userAddBacking.registerUser}" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <br/>
+                <h:outputText rendered="#{userAddBacking.infoMessage ne null}" value="#{userAddBacking.infoMessage}" />
+                <br/>
+                <h:messages id="messages" />
+            </h:form>
 
-                <p:row>
-                    <p:column colspan="2" style="text-align: center">
-                        <h:commandButton value="Regisztráció" type="submit" action="#{userAddBacking.registerUser}" />
-                    </p:column>
-                </p:row>
-            </p:panelGrid>
-            <br/>
-            <h:outputText rendered="#{userAddBacking.infoMessage ne null}" value="#{userAddBacking.infoMessage}" />
-            <br/>
-            <h:messages id="messages" />
-        </h:form>
+            <p>
+                Amennyiben már rendelkezik MoziÉlmény fiókkal, akkor <h:link outcome="login.xhtml" value="ITT"/> beléphet a saját felhasználói felületébe.
+            </p>
 
-        <p>
-            Amennyiben már rendelkezik MoziÉlmény fiókkal, akkor <h:link outcome="login.xhtml" value="ITT"/> beléphet a saját felhasználói felületébe.
-        </p>
+        </ui:define>
 
-    </ui:define>
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

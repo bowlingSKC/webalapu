@@ -8,38 +8,36 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="featured">
+            <div class="title">
+                <h2>#{msg['publicPage.title.contact']}</h2>
+            </div>
 
-    <ui:define name="featured">
-        <div class="title">
-            <h2>#{msg['page.title.contact']}</h2>
-        </div>
+            <div id="contactInformation">
+                <table class="contactInformation">
+                    <tr>
+                        <td><b>#{msg['public.contact.address']}:</b></td>
+                        <td>H-8200 Veszprém, József Attila u. 34/2.</td>
+                    </tr>
 
-        <div id="contactInformation" class="contactInformation">
-            <table>
-                <tr>
-                    <td><b>#{msg['contact.address']}:</b></td>
-                    <td>H-8200 Veszprém, József Attila u. 34/2.</td>
-                </tr>
+                    <tr>
+                        <td><b>#{msg['public.contact.email']}:</b></td>
+                        <td><h:outputLink id="admin" value="mailto:mozielmeny@gmail.com">mozielmeny@gmail.com</h:outputLink></td>
+                    </tr>
+                </table>
+            </div>
 
-                <tr>
-                    <td><b>#{msg['contact.email']}:</b></td>
-                    <td>mozielmeny@gmail.com</td>
-                </tr>
-            </table>
-        </div>
+            <hr class="divider"/>
 
-        <hr class="divider"/>
+            <p:gmap center="47.085166,17.900768" zoom="17" type="ROADMAP" styleClass="contactGoogleMap" model="#{mapBacking.contactMapModel}" />
 
-        <p:gmap center="47.085166,17.900768" zoom="17" type="ROADMAP" styleClass="contactGoogleMap" model="#{mapBacking.contactMapModel}" />
+        </ui:define>
 
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

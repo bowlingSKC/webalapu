@@ -26,7 +26,7 @@ public class UserSearchBacking extends BaseBacking implements Serializable {
     }
 
     public String update() {
-        // felhasználó adatainak módosítása
+        //TODO: felhasználó adatainak módosítása
         return null;
     }
 

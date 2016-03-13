@@ -5,105 +5,104 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:d="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:d="http://java.sun.com/jsf/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="featured">
+            <div class="title">
+                <h2>Hírek szerkesztése</h2>
+            </div>
 
-    <ui:define name="featured">
+            <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
 
-        <div class="title">
-            <h2>Hírek szerkesztése</h2>
-        </div>
+            <h:form id="newsForm">
+                <h:panelGroup id="results">
+                    <p:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
 
-        <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
+                        <p:column headerText="Date">
+                            <h:outputText value="#{news.date}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                            </h:outputText>
+                        </p:column>
 
-        <h:form id="newsForm">
-            <h:panelGroup id="results">
-                <p:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
+                        <p:column headerText="Title">
+                            <h:outputText value="#{news.title}" />
+                        </p:column>
 
-                    <p:column headerText="Date">
-                        <h:outputText value="#{news.date}">
-                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
-                        </h:outputText>
-                    </p:column>
+                        <p:column headerText="Content">
+                            <h:outputText escape="false" value="#{news.shortContent}" />
+                        </p:column>
 
-                    <p:column headerText="Title">
-                        <h:outputText value="#{news.title}" />
-                    </p:column>
-
-                    <p:column headerText="Content">
-                        <h:outputText escape="false" value="#{news.shortContent}" />
-                    </p:column>
-
-                    <p:column headerText="Action">
-                        <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{newsBacking.delete}" styleClass="smallButton">
-                            <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
-                            <f:ajax render=":newsForm:results" />
-                        </p:commandButton>
-
-                        <p:commandButton value="#{msg['button.label.edit']}" type="button" onclick="PF('editdialog').show();" styleClass="smallButton"/>
-
-                    </p:column>
-
-                </p:dataTable>
-            </h:panelGroup>
-        </h:form>
-
-        <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
-            <h:form id="updateForm">
-                <h:panelGrid columns="2">
-
-                    <h:outputLabel for="edit_title" value="Cím:" />
-                    <h:inputText id="edit_title" value="#{newsBacking.selectedNews.title}" />
-
-                    <h:outputLabel for="edit_date" value="Dátum:" />
-                    <h:inputText id="edit_date" value="#{newsBacking.selectedNews.date}">
-                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
-                    </h:inputText>
-
-                    <h:outputLabel for="edit_content" value="Szöveg:" />
-                    <p:editor id="edit_content" value="#{newsBacking.selectedNews.content}" />
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Módosít" actionListener="#{newsBacking.update}" onclick="PF('editdialog').close();" />
-                    </f:facet>
-
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
-
-        <h:form>
-            <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
-                <h:form id="insertForm">
-
-                    <h:panelGrid columns="2">
-
-                        <h:outputLabel for="title" value="Cím:" />
-                        <h:inputText id="title" value="#{newNews.title}" />
-
-                        <h:outputLabel for="date" value="Dátum:" />
-                        <p:calendar id="date" value="#{newNews.date}" showOn="button" />
-
-                        <h:outputLabel for="content" value="Szöveg:" />
-                        <p:editor id="content" value="#{newNews.content}" />
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
+                        <p:column headerText="Action">
+                            <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{newsBacking.delete}" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
                                 <f:ajax render=":newsForm:results" />
                             </p:commandButton>
+
+                            <p:commandButton value="#{msg['button.label.edit']}" type="button" onclick="PF('editdialog').show();" styleClass="smallButton"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+
+            <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
+                <h:form id="updateForm">
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel for="edit_title" value="Cím:" />
+                        <h:inputText id="edit_title" value="#{newsBacking.selectedNews.title}" />
+
+                        <h:outputLabel for="edit_date" value="Dátum:" />
+                        <h:inputText id="edit_date" value="#{newsBacking.selectedNews.date}">
+                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                        </h:inputText>
+
+                        <h:outputLabel for="edit_content" value="Szöveg:" />
+                        <p:editor id="edit_content" value="#{newsBacking.selectedNews.content}" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Módosít" actionListener="#{newsBacking.update}" onclick="PF('editdialog').close();" />
                         </f:facet>
 
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
-        </h:form>
 
-    </ui:define>
+            <h:form>
+                <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
+                    <h:form id="insertForm">
 
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
+                        <h:panelGrid columns="2">
 
-</ui:composition>
+                            <h:outputLabel for="title" value="Cím:" />
+                            <h:inputText id="title" value="#{newNews.title}" />
+
+                            <h:outputLabel for="date" value="Dátum:" />
+                            <p:calendar id="date" value="#{newNews.date}" showOn="button" />
+
+                            <h:outputLabel for="content" value="Szöveg:" />
+                            <p:editor id="content" value="#{newNews.content}" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
+                                    <f:ajax render=":newsForm:results" />
+                                </p:commandButton>
+                            </f:facet>
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </h:form>
+
+        </ui:define>
+
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
+
+    </ui:composition>
 
 </html>

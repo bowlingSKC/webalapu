@@ -8,96 +8,108 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
-
-    <ui:define name="featured">
-        <div id="peoplePanel">
-            <div id="about1" class="paratlan">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Lénárt Bálint</h2></td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="featured">
+            <div class="title">
+                <h2>#{msg['publicPage.title.aboutUs']}</h2>
             </div>
 
-            <hr class="divider"/>
+            <div id="peoplePanel">
+                <div id="aboutLenartBalint">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Lénárt Bálint</h2></td>
+                        </tr>
 
-            <div id="about2" class="paros">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Major Tamás</h2></td>
-                    </tr>
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
+                <hr class="divider"/>
+
+                <div id="aboutMajorTamas">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Major Tamás</h2></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="divider"/>
+
+                <div id="aboutMudraLilla">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Mudra Lilla</h2></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="divider"/>
+
+                <div id="aboutNemethViktor">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Németh Viktor</h2></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="divider"/>
+
+                <div id="aboutOrbanGyula">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Orbán Gyula</h2></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="divider"/>
+
+                <div id="aboutPanczelIstvanAndras">
+                    <table class="about">
+                        <tr>
+                            <td colspan="2"><h2>Pánczél István András</h2></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="#{request.contextPath}/images/guest_profilePicture_80x80.png" width="80px" height="80px" alt="" /></td>
+                            <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
-            <hr class="divider"/>
-            <div id="about3" class="paratlan">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Mudra Lilla</h2></td>
-                    </tr>
+        </ui:define>
 
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
-            </div>
-            <hr class="divider"/>
-            <div id="about4" class="paros">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Németh Viktor</h2></td>
-                    </tr>
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
-            </div>
-            <hr class="divider"/>
-            <div id="about5" class="paratlan">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Orbán Gyula</h2></td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
-            </div>
-            <hr class="divider"/>
-            <div id="about6" class="paros">
-                <table class="about" align="center">
-                    <tr>
-                        <td colspan="2"><h2>Pánczél István András</h2></td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="#{request.contextPath}/images/guest_profilePicture.png" width="80px" height="80px" alt="" /></td>
-                        <td align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum aliquet magna ac congue. Etiam lorem mauris, finibus et sollicitudin eu, eleifend nec mauris. Suspendisse sit amet enim eget felis tempor vestibulum porta at felis. Aenean et fringilla leo, a gravida urna. Donec enim ex, pellentesque venenatis vehicula vel, gravida vitae est. Nullam sit amet erat tempus lorem semper viverra sed vitae lectus. In condimentum tempor laoreet. Sed ac elit convallis, tempor diam quis, lacinia velit.</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

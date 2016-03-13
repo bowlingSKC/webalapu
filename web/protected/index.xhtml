@@ -7,28 +7,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{logoutBacking.login}" />
+        </ui:define>
 
-    <ui:define name="metadata">
-        <f:event type="preRenderView" listener="#{logoutBacking.login}" />
-    </ui:define>
+        <ui:define name="featured">
+            <div class="title">
+                <h2>#{msg['greetings']} #{user.firstName} #{user.lastName}</h2>
+            </div>
 
-    <ui:define name="featured">
+            egy logged oldal index <br/>
+            kettő logged oldal index<br/>
+            három logged oldal index
+        </ui:define>
 
-        <div class="title">
-            <h2>#{msg['greetings']} #{user.firstName} #{user.lastName}</h2>
-        </div>
+        <ui:define name="menu">
+            <ui:include src="menu.xhtml" />
+        </ui:define>
 
-        egy logged oldal index <br/>
-        kettő logged oldal index<br/>
-        három logged oldal index
-
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

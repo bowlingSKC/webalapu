@@ -27,7 +27,7 @@ public class ActorBacking extends BaseBacking implements Serializable {
     public List<String> completeText(String query) {
         List<String> filtered = new ArrayList<>();
         if( getActors() == null ) {
-            System.err.println("null a lista");
+            System.err.println("null a lista"); //TODO
         }
         for(Actor actor : getActors()) {
             if( actor.getName().toLowerCase().contains(query.toLowerCase()) ) {

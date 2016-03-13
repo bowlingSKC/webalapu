@@ -8,83 +8,81 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:d="http://java.sun.com/jsf/core">
 
-<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{actorBacking.retrieveActorList}" />
+        </ui:define>
 
-    <ui:define name="metadata">
-        <f:event type="preRenderView" listener="#{actorBacking.retrieveActorList}" />
-    </ui:define>
+        <ui:define name="featured">
+            <div class="title">
+                <h2>Új film hozzáadása</h2>
+            </div>
 
-    <ui:define name="featured">
+            <h:form id="newMovie">
+                <p:wizard flowListener="#{movieBacking.onFlowProcess}">
 
-        <div class="title">
-            <h2>Új film hozzáadása</h2>
-        </div>
+                    <p:tab title="Alapadatok">
+                        <p:panelGrid columns="2">
 
-        <h:form id="newMovie">
-            <p:wizard flowListener="#{movieBacking.onFlowProcess}">
+                            <p:outputLabel for="title" value="Cím:" />
+                            <p:inputText id="title" value="#{movieBacking.newMovie.title}" />
 
-                <p:tab title="Alapadatok">
-                    <p:panelGrid columns="2">
+                            <p:outputLabel for="orig_title" value="Eredeti cím:" />
+                            <p:inputText id="orig_title" value="#{movieBacking.newMovie.originalTitle}" />
 
-                        <p:outputLabel for="title" value="Cím:" />
-                        <p:inputText id="title" value="#{movieBacking.newMovie.title}" />
+                            <p:outputLabel for="duration" value="Hossz (perc):" />
+                            <p:inputText id="duration" value="#{movieBacking.newMovie.duration}">
+                                <f:convertNumber />
+                            </p:inputText>
 
-                        <p:outputLabel for="orig_title" value="Eredeti cím:" />
-                        <p:inputText id="orig_title" value="#{movieBacking.newMovie.originalTitle}" />
+                            <p:outputLabel for="premier" value="Premier:" />
+                            <p:calendar id="premier" value="#{movieBacking.newMovie.premiere}">
+                                <f:convertDateTime pattern="yyyy.MM.dd." />
+                            </p:calendar>
 
-                        <p:outputLabel for="duration" value="Hossz (perc):" />
-                        <p:inputText id="duration" value="#{movieBacking.newMovie.duration}">
-                            <f:convertNumber />
-                        </p:inputText>
+                            <p:outputLabel for="imdb" value="IMDB:" />
+                            <p:inputText id="imdb" value="#{movieBacking.newMovie.imdbURL}" placeholder="http://www.imdb.com" />
 
-                        <p:outputLabel for="premier" value="Premier:" />
-                        <p:calendar id="premier" value="#{movieBacking.newMovie.premiere}">
-                            <f:convertDateTime pattern="yyyy.MM.dd." />
-                        </p:calendar>
+                            <p:outputLabel for="youtube" value="Előzetes:" />
+                            <p:inputText id="youtube" value="#{movieBacking.newMovie.youtubeURL}" placeholder="http://www.youtube.com" />
 
-                        <p:outputLabel for="imdb" value="IMDB:" />
-                        <p:inputText id="imdb" value="#{movieBacking.newMovie.imdbURL}" placeholder="http://www.imdb.com" />
+                        </p:panelGrid>
+                    </p:tab>
 
-                        <p:outputLabel for="youtube" value="Előzetes:" />
-                        <p:inputText id="youtube" value="#{movieBacking.newMovie.youtubeURL}" placeholder="http://www.youtube.com" />
+                    <p:tab title="Színészek">
+                        <p:dataTable id="actorsTable" value="#{movieBacking.newMovie.actors}" var="actor">
+                            <p:column headerText="Színész neve">
+                                <p:autoComplete value="#{actor.actor.name}" completeMethod="#{actorBacking.completeText}" />
+                            </p:column>
+                            <p:column headerText="Karakter">
+                                <p:inputText value="#{actor.character}" />
+                            </p:column>
+                            <p:column headerText="Főszereplő?">
+                                <p:selectBooleanCheckbox value="#{actor.mainCharacter}" />
+                            </p:column>
+                            <p:column headerText="Művelet">
+                                <p:link value="Törlés" />
+                            </p:column>
+                        </p:dataTable>
 
-                    </p:panelGrid>
-                </p:tab>
+                        <p:commandButton action="#{movieBacking.addNewActor}" value="Új színész hozzáadása"
+                                         update="actorsTable" ajax="true" />
 
-                <p:tab title="Színészek">
-                    <p:dataTable id="actorsTable" value="#{movieBacking.newMovie.actors}" var="actor">
-                        <p:column headerText="Színész neve">
-                            <p:autoComplete value="#{actor.actor.name}" completeMethod="#{actorBacking.completeText}" />
-                        </p:column>
-                        <p:column headerText="Karakter">
-                            <p:inputText value="#{actor.character}" />
-                        </p:column>
-                        <p:column headerText="Főszereplő?">
-                            <p:selectBooleanCheckbox value="#{actor.mainCharacter}" />
-                        </p:column>
-                        <p:column headerText="Művelet">
-                            <p:link value="Törlés" />
-                        </p:column>
-                    </p:dataTable>
+                    </p:tab>
 
-                    <p:commandButton action="#{movieBacking.addNewActor}" value="Új színész hozzáadása"
-                                     update="actorsTable" ajax="true" />
+                    <p:tab title="Leírás">
 
-                </p:tab>
+                    </p:tab>
 
-                <p:tab title="Leírás">
+                </p:wizard>
+            </h:form>
 
-                </p:tab>
+        </ui:define>
 
-            </p:wizard>
-        </h:form>
+        <ui:define name="menu">
+            <ui:include src="../menu.xhtml" />
+        </ui:define>
 
-    </ui:define>
-
-    <ui:define name="menu">
-        <ui:include src="../menu.xhtml" />
-    </ui:define>
-
-</ui:composition>
+    </ui:composition>
 
 </html>

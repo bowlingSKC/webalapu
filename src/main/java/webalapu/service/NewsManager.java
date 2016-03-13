@@ -14,7 +14,7 @@ import java.util.List;
 @Stateless
 public class NewsManager implements NewsManagerLocal {
 
-    @PersistenceContext(unitName = "cinemaUnit")
+    @PersistenceContext(unitName = "cinemaUnit") //TODO: check
     EntityManager em;
 
     @Override
