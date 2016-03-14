@@ -14,89 +14,120 @@
                 <h2>#{msg['adminPage.title.news']}</h2>
             </div>
 
-            <p:commandButton value="Új hír" type="button" onclick="PF('dialog').show();" />
-
             <h:form id="newsForm">
                 <h:panelGroup id="results">
-                    <p:dataTable value="#{newsBacking.news}" var="news" rendered="#{newsBacking.news ne null}">
+                    <p:dataTable value="#{newsBacking.news}" var="news" widgetVar="newsTable"
+                                 emptyMessage="#{msg['adminPage.news.resultsEmpty']}"
+                                 filteredValue="#{newsBacking.filteredNews}"
+                                 paginator="true"
+                                 paginatorTemplate="{AddNewNews} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,15">
 
-                        <p:column headerText="Date">
+                        <f:facet name="{AddNewNews}">
+                            <p:commandButton value="#{msg['adminPage.news.addNewNews']}" type="button" onclick="PF('addNewNewsDialog').show();" icon="ui-icon-plusthick" styleClass="newItemButtonTemplate"/>
+                        </f:facet>
+
+                        <p:column headerText="#{msg['adminPage.news.date']}">
                             <h:outputText value="#{news.date}">
                                 <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Title">
+                        <p:column headerText="#{msg['adminPage.news.title']}">
                             <h:outputText value="#{news.title}" />
                         </p:column>
 
-                        <p:column headerText="Content">
-                            <h:outputText escape="false" value="#{news.shortContent}" />
+                        <p:column headerText="#{msg['adminPage.news.content']}">
+                            <h:outputText value="#{news.shortContent}" />
                         </p:column>
 
-                        <p:column headerText="Action">
-                            <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{newsBacking.delete}" styleClass="smallButton">
+                        <p:column headerText="#{msg['table.label.actions']}">
+                            <p:commandButton value="#{msg['button.label.details']}" update=":newsForm:newsDetail" oncomplete="PF('showNewsDetailsDialog').show()" icon="ui-icon-search" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg['button.label.edit']}" update=":editNewsForm" oncomplete="PF('editNewsDialog').show()" icon="ui-icon-gear" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg['button.label.delete']}" type="button" action="#{newsBacking.delete}" icon="ui-icon-trash" styleClass="smallButton">
                                 <f:setPropertyActionListener value="#{news}" target="#{newsBacking.selectedNews}" />
                                 <f:ajax render=":newsForm:results" />
                             </p:commandButton>
-
-                            <p:commandButton value="#{msg['button.label.edit']}" type="button" onclick="PF('editdialog').show();" styleClass="smallButton"/>
-
                         </p:column>
 
                     </p:dataTable>
                 </h:panelGroup>
+
+                <p:dialog header="#{msg['adminPage.news.viewNews']}" widgetVar="showNewsDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="newsDetail">
+                        <h:form>
+                            <p:panelGrid columns="2" rendered="#{not empty newsBacking.selectedNews}">
+
+                                <p:outputLabel for="title" value="#{msg['adminPage.news.title']}:" />
+                                <h:outputText id="title" value="#{newsBacking.selectedNews.title}" />
+
+                                <p:outputLabel for="date" value="#{msg['adminPage.news.date']}:" />
+                                <h:outputText id="date" value="#{newsBacking.selectedNews.date}">
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                                </h:outputText>
+
+                                <p:outputLabel for="content" value="#{msg['adminPage.news.content']}:" />
+                                <h:outputText id="content" escape="false" value="#{newsBacking.selectedNews.content}" />
+
+                            </p:panelGrid>
+                        </h:form>
+                    </p:outputPanel>
+                </p:dialog>
+
             </h:form>
 
-            <p:dialog header="Hír szerkesztése" widgetVar="editdialog" modal="true">
-                <h:form id="updateForm">
-                    <h:panelGrid columns="2">
+            <h:form id="editNewsForm">
+                <p:dialog header="#{msg['adminPage.news.editNews']}" widgetVar="editNewsDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <h:form id="editForm">
+                        <p:panelGrid columns="2" rendered="#{not empty newsBacking.selectedNews}">
+                            <h:outputLabel for="editNewsTitle" value="#{msg['adminPage.news.title']}:" />
+                            <h:inputText id="editNewsTitle" value="#{cinemaBacking.selectedCinema.title}" />
 
-                        <h:outputLabel for="edit_title" value="Cím:" />
-                        <h:inputText id="edit_title" value="#{newsBacking.selectedNews.title}" />
+                            <h:outputLabel for="editNewsDate" value="#{msg['adminPage.news.date']}:" />
+                            <p:calendar id="editNewsDate" value="#{cinemaBacking.selectedCinema.date}" showOn="button" />
 
-                        <h:outputLabel for="edit_date" value="Dátum:" />
-                        <h:inputText id="edit_date" value="#{newsBacking.selectedNews.date}">
-                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
-                        </h:inputText>
-
-                        <h:outputLabel for="edit_content" value="Szöveg:" />
-                        <p:editor id="edit_content" value="#{newsBacking.selectedNews.content}" />
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Módosít" actionListener="#{newsBacking.update}" onclick="PF('editdialog').close();" />
-                        </f:facet>
-
-                    </h:panelGrid>
-                </h:form>
-            </p:dialog>
-
-            <h:form>
-                <p:dialog header="Új hír hozzáadása" widgetVar="dialog" modal="true">
-                    <h:form id="insertForm">
-
-                        <h:panelGrid columns="2">
-
-                            <h:outputLabel for="title" value="Cím:" />
-                            <h:inputText id="title" value="#{newNews.title}" />
-
-                            <h:outputLabel for="date" value="Dátum:" />
-                            <p:calendar id="date" value="#{newNews.date}" showOn="button" />
-
-                            <h:outputLabel for="content" value="Szöveg:" />
-                            <p:editor id="content" value="#{newNews.content}" />
+                            <h:outputLabel for="editNewsContent" value="#{msg['adminPage.news.content']}:" />
+                            <p:editor id="editNewsContent" value="#{cinemaBacking.selectedCinema.content}" />
 
                             <f:facet name="footer">
-                                <p:commandButton value="Felvesz" actionListener="#{newsBacking.insert}" onclick="PF('dialog').close();">
+                                <p:commandButton value="#{msg['button.label.change']}" onclick="PF('editNewsDialog').close();">
                                     <f:ajax render=":newsForm:results" />
                                 </p:commandButton>
                             </f:facet>
-
-                        </h:panelGrid>
+                        </p:panelGrid>
                     </h:form>
                 </p:dialog>
             </h:form>
 
+            <h:form id="addNewNewsForm">
+                <p:dialog header="#{msg['adminPage.news.addNewNews']}" widgetVar="addNewNewsDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="insertForm">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="newsTitle" value="#{msg['adminPage.news.title']}:" />
+                            <h:inputText id="newsTitle" value="#{newNews.title}" />
+
+                            <h:outputLabel for="newsDate" value="#{msg['adminPage.news.date']}:" />
+                            <p:calendar id="newsDate" value="#{newNews.date}" showOn="button" />
+
+                            <h:outputLabel for="newsContent" value="#{msg['adminPage.news.content']}:" />
+                            <p:editor id="newsContent" value="#{newNews.content}" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="#{msg['button.label.add']}" actionListener="#{newsBacking.insert}" onclick="PF('addNewNewsDialog').close();">
+                                    <f:ajax render=":newsForm:results" />
+                                </p:commandButton>
+                            </f:facet>
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </h:form>
         </ui:define>
 
         <ui:define name="menu">

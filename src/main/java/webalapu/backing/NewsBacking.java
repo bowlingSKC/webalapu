@@ -27,6 +27,8 @@ public class NewsBacking extends BaseBacking implements Serializable {
     private List<News> top5News;
     private News selectedNews;
 
+    private List<News> filteredNews;
+
     @Named
     @Produces
     @RequestScoped
@@ -106,5 +108,13 @@ public class NewsBacking extends BaseBacking implements Serializable {
 
     public void setTop5News(List<News> top5News) {
         this.top5News = top5News;
+    }
+
+    public List<News> getFilteredNews() {
+        return filteredNews;
+    }
+
+    public void setFilteredNews(List<News> filteredNews) {
+        this.filteredNews = filteredNews;
     }
 }
