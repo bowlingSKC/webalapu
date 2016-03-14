@@ -1,0 +1,12 @@
+TODO LIST:
+    - adatbázisban a felhasználók kibővítése profilképpel
+    - 4 betűs jelszavak regisztrációja/bejelentkeztetése nem működik (szándékos?)
+    - hírek hozzáadásakor az ékezetes karakterek nem kerülnek bele az adatbázisba, de a phpmyadminból hozzáadott híreknék rendesen megjelennek
+    - híreknél a shortContent készítése nem igazán jól működik ha a hírben formázás található
+    - Primefaces datatable kinézetének átalakítása hogy passzoljon az oldal jelenlegi dizájnjához
+    - hírek módosítása (szerver oldal)
+    - mozik módosítása (szerver oldal)
+    - felhasználók módosítása (szerver oldal)
+
+IDEAS:
+    - elfelejtett jelszó oldal? a regisztrációnál a bejelentkezéshez irányító link helyett több értelme lenne
