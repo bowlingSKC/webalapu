@@ -10,3 +10,5 @@ TODO LIST:
 
 IDEAS:
     - elfelejtett jelszó oldal? a regisztrációnál a bejelentkezéshez irányító link helyett több értelme lenne
+
+DONE:
