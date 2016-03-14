@@ -19,40 +19,52 @@
             </div>
 
             <h:form id="cinemaForm">
-                <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema">
-                    <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}">
-                        <h:outputText value="#{cinema.name}" />
-                    </p:column>
+                <h:panelGroup id="results">
+                    <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema" widgetVar="cinemasTable"
+                                 emptyMessage="#{msg['public.cinemas.resultsEmpty']}"
+                                 filteredValue="#{cinemaBacking.filteredCinemas}"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}">
-                        <h:outputText value="#{cinema.city}" />
-                    </p:column>
+                        <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}" filterBy="#{cinema.name}" filterMatchMode="contains">
+                            <h:outputText value="#{cinema.name}" />
+                        </p:column>
 
-                    <p:column headerText="" style="width: 32px; text-align: center">
-                        <p:commandButton update=":cinemaForm:cinemaDetail" oncomplete="PF('cinemaDialog').show()" icon="ui-icon-search" title="#{msg['public.cinemas.details']}">
-                            <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
+                        <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}" filterBy="#{cinema.city}" filterMatchMode="contains">
+                            <h:outputText value="#{cinema.city}" />
+                        </p:column>
 
-                <p:dialog widgetVar="cinemaDialog" header="#{msg['public.cinemas.cinemaDetails']}" modal="true">
+                        <p:column headerText="#{msg['table.label.actions']}">
+                            <p:commandButton value="#{msg['button.label.details']}" update=":cinemaForm:cinemaDetail" oncomplete="PF('showCinemaDetailsDialog').show()" icon="ui-icon-search" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+                <p:dialog header="#{msg['public.cinemas.viewCinema']}" widgetVar="showCinemaDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
                     <p:outputPanel id="cinemaDetail">
                         <p:tabView>
                             <p:tab title="#{msg['public.cinemas.data']}">
-                                <p:scrollPanel mode="native" style="width:inherit;height:500px">
-                                    <p:panelGrid columns="2">
-
+                                <h:form>
+                                    <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
                                         <p:outputLabel for="name" value="#{msg['public.cinemas.name']}:" />
                                         <h:outputText id="name" value="#{cinemaBacking.selectedCinema.name}" />
 
                                         <p:outputLabel for="city" value="#{msg['public.cinemas.city']}:" />
                                         <h:outputText id="city" value="#{cinemaBacking.selectedCinema.city}" />
 
+                                        <p:outputLabel for="description" value="#{msg['public.cinemas.description']}:" />
+                                        <h:outputText id="description" value="#{cinemaBacking.selectedCinema.description}" />
+
                                         <p:outputLabel for="address" value="#{msg['public.cinemas.address']}:" />
                                         <h:outputText id="address" value="#{cinemaBacking.selectedCinema.address}" />
 
-                                        <p:outputLabel for="admin" value="#{msg['public.cinemas.contact']}:" />
-                                        <h:outputLink id="admin" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
+                                        <p:outputLabel for="contact" value="#{msg['public.cinemas.contact']}:" />
+                                        <h:outputLink id="contact" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
                                             <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
                                             <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
                                         </h:outputLink>
@@ -62,15 +74,16 @@
 
                                     #{mapBacking.setCinemaLocationOnMap(cinemaBacking.selectedCinema.name, cinemaBacking.selectedCinema.latitude, cinemaBacking.selectedCinema.longitude)}
                                     <p:gmap center="#{mapBacking.cinemaMapCenter}" zoom="17" type="ROADMAP" styleClass="cinemaGoogleMap" model="#{mapBacking.cinemaMapModel}"/>
-                                </p:scrollPanel>
+                                </h:form>
                             </p:tab>
-                            <p:tab title="#{msg['public.cinemas.screenings']}">
 
+                            <p:tab title="#{msg['public.cinemas.screenings']}">
+                                Egy vetítés itt, egy vetítés ott, valaki megcsinálhatná
                             </p:tab>
+
                         </p:tabView>
                     </p:outputPanel>
                 </p:dialog>
-
             </h:form>
 
         </ui:define>

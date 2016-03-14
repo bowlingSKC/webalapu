@@ -21,30 +21,31 @@
             <h:form id="cinemaForm">
                 <h:panelGroup id="results">
                     <p:dataTable value="#{cinemaBacking.cinemas}" var="cinema" widgetVar="cinemasTable"
-                                 emptyMessage="Nincs a keresésnek megfelelő mozi!"
+                                 emptyMessage="#{msg['adminPage.cinemas.resultsEmpty']}"
                                  filteredValue="#{cinemaBacking.filteredCinemas}"
                                  paginator="true"
                                  paginatorTemplate="{AddNewCinema} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="10"
                                  rowsPerPageTemplate="5,10,15">
 
                         <f:facet name="{AddNewCinema}">
-                            <p:commandButton value="Új mozi" type="button" onclick="PF('addNewCinemaDialog').show();" icon="ui-icon-plusthick" styleClass="newItemButtonTemplate"/>
+                            <p:commandButton value="#{msg['adminPage.cinemas.addNewCinema']}" type="button" onclick="PF('addNewCinemaDialog').show();" icon="ui-icon-plusthick" styleClass="newItemButtonTemplate"/>
                         </f:facet>
 
-                        <p:column headerText="#{msg['public.cinemas.name']}" sortBy="#{cinema.name}">
+                        <p:column headerText="#{msg['adminPage.cinemas.name']}" sortBy="#{cinema.name}" filterBy="#{cinema.name}" filterMatchMode="contains">
                             <h:outputText value="#{cinema.name}" />
                         </p:column>
 
-                        <p:column headerText="#{msg['public.cinemas.city']}" sortBy="#{cinema.city}">
+                        <p:column headerText="#{msg['adminPage.cinemas.city']}" sortBy="#{cinema.city}" filterBy="#{cinema.city}" filterMatchMode="contains">
                             <h:outputText value="#{cinema.city}" />
                         </p:column>
 
-                        <p:column headerText="Műveletek">
-                            <p:commandButton value="#{msg['button.label.details']}" update=":cinemaForm:cinemaDetail" oncomplete="PF('showCinemaDetailsDialog').show()" icon="ui-icon-search" title="#{msg['button.label.details']}" styleClass="smallButton">
+                        <p:column headerText="#{msg['table.label.actions']}">
+                            <p:commandButton value="#{msg['button.label.details']}" update=":cinemaForm:cinemaDetail" oncomplete="PF('showCinemaDetailsDialog').show()" icon="ui-icon-search" styleClass="smallButton">
                                 <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
                             </p:commandButton>
 
-                            <p:commandButton value="#{msg['button.label.edit']}" update=":cinemaForm:cinemaDetailEdit" oncomplete="PF('editCinemaDialog').show()" icon="ui-icon-gear" styleClass="smallButton">
+                            <p:commandButton value="#{msg['button.label.edit']}" update=":editCinemaForm" oncomplete="PF('editCinemaDialog').show()" icon="ui-icon-gear" styleClass="smallButton">
                                 <f:setPropertyActionListener value="#{cinema}" target="#{cinemaBacking.selectedCinema}" />
                             </p:commandButton>
 
@@ -57,20 +58,23 @@
                     </p:dataTable>
                 </h:panelGroup>
 
-                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="showCinemaDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
+                <p:dialog header="#{msg['adminPage.cinemas.viewCinema']}" widgetVar="showCinemaDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
                     <p:outputPanel id="cinemaDetail">
                         <p:tabView>
-                            <p:tab title="#{msg['public.cinemas.data']}">
+                            <p:tab title="#{msg['adminPage.cinemas.data']}">
                                 <h:form>
                                     <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
 
-                                        <p:outputLabel for="name" value="#{msg['public.cinemas.name']}:" />
+                                        <p:outputLabel for="name" value="#{msg['adminPage.cinemas.name']}:" />
                                         <h:outputText id="name" value="#{cinemaBacking.selectedCinema.name}" />
 
-                                        <p:outputLabel for="city" value="#{msg['public.cinemas.city']}:" />
+                                        <p:outputLabel for="city" value="#{msg['adminPage.cinemas.city']}:" />
                                         <h:outputText id="city" value="#{cinemaBacking.selectedCinema.city}" />
 
-                                        <p:outputLabel for="address" value="#{msg['public.cinemas.address']}:" />
+                                        <p:outputLabel for="description" value="#{msg['adminPage.cinemas.description']}:" />
+                                        <h:outputText id="description" value="#{cinemaBacking.selectedCinema.description}" />
+
+                                        <p:outputLabel for="address" value="#{msg['adminPage.cinemas.address']}:" />
                                         <h:outputText id="address" value="#{cinemaBacking.selectedCinema.address}" />
 
                                         <p:outputLabel for="lat" value="#{msg['adminPage.cinemas.lat']}:" />
@@ -79,81 +83,75 @@
                                         <p:outputLabel for="lng" value="#{msg['adminPage.cinemas.lng']}:" />
                                         <h:outputText id="lng" value="#{cinemaBacking.selectedCinema.longitude}" />
 
-                                        <p:outputLabel for="admin" value="#{msg['public.cinemas.contact']}:" />
-                                        <h:outputLink id="admin" value="mailto:#{cinemaBacking.selectedCinema.manager.email}">
-                                            <h:outputText value="#{cinemaBacking.selectedCinema.manager.firstName} "/>
-                                            <h:outputText value="#{cinemaBacking.selectedCinema.manager.lastName}" />
-                                        </h:outputLink>
+                                        <p:outputLabel for="admin" value="#{msg['adminPage.cinemas.manager']}:" />
+                                        <h:outputText id="admin" value="#{cinemaBacking.selectedCinema.manager.email}" />
 
                                     </p:panelGrid>
                                 </h:form>
                             </p:tab>
 
-                            <p:tab title="#{msg['public.cinemas.screenings']}">
+                            <p:tab title="#{msg['adminPage.cinemas.screenings']}">
                                 Egy vetítés itt, egy vetítés ott, valaki megcsinálhatná
                             </p:tab>
                         </p:tabView>
                     </p:outputPanel>
                 </p:dialog>
-
-                <p:dialog header="#{msg['public.cinemas.cinemaDetails']}" widgetVar="editCinemaDialog" modal="true" showEffect="fade" hideEffect="fade">
-                    <p:outputPanel id="cinemaDetailEdit">
-                        <p:tabView>
-                            <p:tab title="#{msg['public.cinemas.data']}">
-                                <h:form>
-                                    <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
-
-                                        <p:outputLabel for="editName" value="#{msg['public.cinemas.name']}:" />
-                                        <h:inputText id="editName" value="#{cinemaBacking.selectedCinema.name}" />
-
-                                        <p:outputLabel for="editCity" value="#{msg['public.cinemas.city']}:" />
-                                        <h:inputText id="editCity" value="#{cinemaBacking.selectedCinema.city}" />
-
-                                        <p:outputLabel for="editAddress" value="#{msg['public.cinemas.address']}:" />
-                                        <h:inputText id="editAddress" value="#{cinemaBacking.selectedCinema.address}" />
-
-                                        <p:outputLabel for="adminEmail" value="#{msg['public.cinemas.contact']}:" />
-                                        <h:inputText id="adminEmail" value="" />
-
-                                        <f:facet name="footer">
-                                            <p:commandButton value="Módosít" onclick="PF('editCinemaDialog').close();">
-                                                <f:ajax render=":cinemaForm:results" />
-                                            </p:commandButton>
-                                        </f:facet>
-                                    </p:panelGrid>
-                                </h:form>
-                            </p:tab>
-                        </p:tabView>
-                    </p:outputPanel>
-                </p:dialog>
-
             </h:form>
 
-            <h:form>
-                <p:dialog header="Új mozi hozzáadása" widgetVar="addNewCinemaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <h:form id="insertForm">
-                        <h:panelGrid columns="2">
-                            <h:outputLabel for="cinemaName" value="Név:" />
-                            <h:inputText id="cinemaName" value="#{newCinema.name}" />
+            <h:form id="editCinemaForm">
+                <p:dialog header="#{msg['adminPage.cinemas.editCinema']}" widgetVar="editCinemaDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <h:form id="editForm">
+                        <p:panelGrid columns="2" rendered="#{not empty cinemaBacking.selectedCinema}">
 
-                            <h:outputLabel for="cinemaCity" value="Város:" />
-                            <h:inputText id="cinemaCity" value="#{newCinema.city}" />
+                            <p:outputLabel for="editName" value="#{msg['adminPage.cinemas.name']}:" />
+                            <h:inputText id="editName" value="#{cinemaBacking.selectedCinema.name}" />
 
-                            <h:outputLabel for="cinemaAddress" value="Cím:" />
-                            <h:inputText id="cinemaAddress" value="#{newCinema.address}" />
+                            <p:outputLabel for="editCity" value="#{msg['adminPage.cinemas.city']}:" />
+                            <h:inputText id="editCity" value="#{cinemaBacking.selectedCinema.city}" />
 
-                            <h:outputLabel for="cinemaDesc" value="Leírás:" />
-                            <h:inputText id="cinemaDesc" value="#{newCinema.description}" />
+                            <p:outputLabel for="editDesc" value="#{msg['adminPage.cinemas.description']}:" />
+                            <h:inputText id="editDesc" value="#{cinemaBacking.selectedCinema.description}" />
 
-                            <h:outputLabel for="cinemaManagerEmail" value="Manager:" />
-                            <h:inputText id="cinemaManagerEmail"/>
+                            <p:outputLabel for="editAddress" value="#{msg['adminPage.cinemas.address']}:" />
+                            <h:inputText id="editAddress" value="#{cinemaBacking.selectedCinema.address}" />
+
+                            <p:outputLabel for="adminEmail" value="#{msg['adminPage.cinemas.manager']}:" />
+                            <h:inputText id="adminEmail" value="" />
 
                             <f:facet name="footer">
-                                <p:commandButton value="Hozzáad" actionListener="#{cinemaBacking.insert(param['namingContainer:cinemaManagerEmail'])}" onclick="PF('addNewCinemaDialog').close();">
+                                <p:commandButton value="#{msg['button.label.change']}" onclick="PF('editCinemaDialog').close();">
                                     <f:ajax render=":cinemaForm:results" />
                                 </p:commandButton>
                             </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </h:form>
 
+            <h:form id="addNewCinemaForm">
+                <p:dialog header="#{msg['adminPage.cinemas.addNewCinema']}" widgetVar="addNewCinemaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="insertForm">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="cinemaName" value="#{msg['adminPage.cinemas.name']}:" />
+                            <h:inputText id="cinemaName" value="#{newCinema.name}" />
+
+                            <h:outputLabel for="cinemaCity" value="#{msg['adminPage.cinemas.city']}:" />
+                            <h:inputText id="cinemaCity" value="#{newCinema.city}" />
+
+                            <h:outputLabel for="cinemaAddress" value="#{msg['adminPage.cinemas.address']}:" />
+                            <h:inputText id="cinemaAddress" value="#{newCinema.address}" />
+
+                            <h:outputLabel for="cinemaDesc" value="#{msg['adminPage.cinemas.description']}:" />
+                            <h:inputText id="cinemaDesc" value="#{newCinema.description}" />
+
+                            <h:outputLabel for="cinemaManagerEmail" value="#{msg['adminPage.cinemas.manager']}:" />
+                            <h:inputText id="cinemaManagerEmail"/>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="#{msg['button.label.add']}" actionListener="#{cinemaBacking.insert(param['namingContainer:cinemaManagerEmail'])}" onclick="PF('addNewCinemaDialog').close();">
+                                    <f:ajax render=":cinemaForm:results" />
+                                </p:commandButton>
+                            </f:facet>
                         </h:panelGrid>
                     </h:form>
                 </p:dialog>

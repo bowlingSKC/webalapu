@@ -30,11 +30,11 @@
                         <h:outputText value="#{user.firstName}" />
                     </p:column>
 
-                    <p:column headerText="Keresztnév" sortBy="#{user.lastName}" filterBy="#{user.firstName}" filterMatchMode="contains">
+                    <p:column headerText="Keresztnév" sortBy="#{user.lastName}" filterBy="#{user.lastName}" filterMatchMode="contains">
                         <h:outputText value="#{user.lastName}" />
                     </p:column>
 
-                    <p:column headerText="E-mail" sortBy="#{user.email}" filterBy="#{user.firstName}" filterMatchMode="contains">
+                    <p:column headerText="E-mail" sortBy="#{user.email}" filterBy="#{user.email}" filterMatchMode="contains">
                         <h:outputText value="#{user.email}" />
                     </p:column>
 
