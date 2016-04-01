@@ -5,17 +5,60 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/WEB-INF/template/main.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{movieBacking.retrieveMovieList}" />
+        </ui:define>
+
         <ui:define name="featured">
             <div class="title">
                 <h2>#{msg['publicPage.title.films']}</h2>
             </div>
 
-            egy film
-            két film
-            három film
+            <h:form id="moviesForm">
+                <h:panelGroup id="results">
+                    <p:dataTable value="#{movieBacking.allMovies}" var="movie" widgetVar="moviesTable"
+                                 emptyMessage="#{msg['public.movies.resultsEmpty']}"
+                                 filteredValue="#{movieBacking.filteredMovies}"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <p:column headerText="#{msg['public.movies.title']}" sortBy="#{movie.title}" filterBy="#{movie.title}" filterMatchMode="contains">
+                            <h:outputText value="#{movie.title}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['public.movies.duration']}" sortBy="#{movie.duration}">
+                            <h:outputText value="#{movie.duration}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['public.movies.trailer']}">
+                            <a><h:outputText value="#{movie.youtubeURL}"/></a>
+                        </p:column>
+
+                        <p:column headerText="#{msg['public.movies.rate']}" sortBy="#{movie.rate}">
+                            <a><h:outputText value="#{movie.rate}"/></a>
+                        </p:column>
+
+                        <p:column headerText="#{msg['table.label.actions']}">
+                            <p:commandButton value="#{msg['button.label.details']}" update=":moviesForm:movieDetail" oncomplete="PF('showMovieDetailsDialog').show()" icon="ui-icon-search" styleClass="smallButton">
+                                <f:setPropertyActionListener value="#{movie}" target="#{movieBacking.selectedMovie}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+                <p:dialog header="#{msg['public.movies.viewMovie']}" widgetVar="showMovieDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="movieDetail">
+                        Film részletei
+                    </p:outputPanel>
+                </p:dialog>
+
+            </h:form>
         </ui:define>
 
         <ui:define name="menu">

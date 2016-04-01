@@ -28,17 +28,17 @@
                             <p:commandButton value="#{msg['adminPage.news.addNewNews']}" type="button" onclick="PF('addNewNewsDialog').show();" icon="ui-icon-plusthick" styleClass="newItemButtonTemplate"/>
                         </f:facet>
 
-                        <p:column headerText="#{msg['adminPage.news.date']}">
+                        <p:column headerText="#{msg['adminPage.news.date']}" sortBy="#{news.date}" filterBy="#{news.date}" filterMatchMode="contains">
                             <h:outputText value="#{news.date}">
                                 <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="#{msg['adminPage.news.title']}">
+                        <p:column headerText="#{msg['adminPage.news.title']}" sortBy="#{news.title}" filterBy="#{news.title}" filterMatchMode="contains">
                             <h:outputText value="#{news.title}" />
                         </p:column>
 
-                        <p:column headerText="#{msg['adminPage.news.content']}">
+                        <p:column headerText="#{msg['adminPage.news.content']}" filterBy="#{news.content}" filterMatchMode="contains">
                             <h:outputText value="#{news.shortContent}" />
                         </p:column>
 

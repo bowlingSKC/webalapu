@@ -23,10 +23,6 @@ public class Genre implements Serializable{
     @Column(name = "name")
     private String name;
 
-    @Basic(optional = false)
-    @Column(name = "description")
-    private String description;
-
     @ManyToMany(mappedBy = "genreList")
     private List<Movie> movies;
 
@@ -34,15 +30,13 @@ public class Genre implements Serializable{
 
     }
 
-    public Genre(Integer id, String name, String description) {
+    public Genre(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.description = description;
     }
 
-    public Genre(String name, String description) {
+    public Genre(String name) {
         this.name = name;
-        this.description = description;
     }
 
     public Integer getId() {
@@ -61,14 +55,6 @@ public class Genre implements Serializable{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public List<Movie> getMovies() {
         return movies;
     }
@@ -84,7 +70,6 @@ public class Genre implements Serializable{
 
         Genre genre = (Genre) o;
 
-        if (description != null ? !description.equals(genre.description) : genre.description != null) return false;
         if (!name.equals(genre.name)) return false;
 
         return true;
@@ -93,7 +78,6 @@ public class Genre implements Serializable{
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
@@ -102,7 +86,6 @@ public class Genre implements Serializable{
         return "Genre{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
 }

@@ -19,7 +19,6 @@ public class NewsManager implements NewsManagerLocal {
 
     @Override
     public News getNewsById(Integer id) throws NewsNotFoundException {
-
         return null;
     }
 
@@ -41,6 +40,7 @@ public class NewsManager implements NewsManagerLocal {
                     (Date) newsInfo[3]
             );
             news.add(n);
+            System.out.println(n.getContent());
         }
 
         return news;
