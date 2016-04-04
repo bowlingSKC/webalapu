@@ -12,7 +12,7 @@
         </locale-config>
 
         <resource-bundle>
-            <base-name>webalapu.messages</base-name>
+            <base-name>webalapu.util.Text</base-name>
             <var>msg</var>
         </resource-bundle>
 
