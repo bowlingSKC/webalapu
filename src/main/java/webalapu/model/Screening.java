@@ -19,29 +19,14 @@ public class Screening implements Serializable{
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "reservation_time")
+    @Column(name = "start")
     @Temporal(TemporalType.DATE)
-    private Date reservationTime = new Date();
+    private Date startTime = new Date();
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "used")
-    private boolean used;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "paid")
-    private boolean paid;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "hall_row")
-    private Integer hallRow;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "hall_col")
-    private Integer hallCol;
+    @Column(name = "priece")
+    private Integer priece;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "screening")
     private List<Ticket> tickets;
@@ -50,25 +35,31 @@ public class Screening implements Serializable{
     @ManyToOne(optional = false)
     private Hall hall;
 
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Movie movie;
+
     public Screening(){
 
     }
 
-    public Screening(Integer id, Date reservationTime, boolean used, boolean paid, Integer hallRow, Integer hallCol) {
-        this.id = id;
-        this.reservationTime = reservationTime;
-        this.used = used;
-        this.paid = paid;
-        this.hallRow = hallRow;
-        this.hallCol = hallCol;
+    public Screening(Date startTime, Integer priece, Hall hall, Movie movie) {
+        this.startTime = startTime;
+        this.priece = priece;
+        this.hall = hall;
+        this.movie = movie;
     }
 
-    public Screening(Date reservationTime, boolean used, boolean paid, Integer hallRow, Integer hallCol) {
-        this.reservationTime = reservationTime;
-        this.used = used;
-        this.paid = paid;
-        this.hallRow = hallRow;
-        this.hallCol = hallCol;
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -79,52 +70,20 @@ public class Screening implements Serializable{
         this.id = id;
     }
 
-    public Date getReservationTime() {
-        return reservationTime;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setReservationTime(Date reservationTime) {
-        this.reservationTime = reservationTime;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public boolean isUsed() {
-        return used;
+    public Integer getPriece() {
+        return priece;
     }
 
-    public void setUsed(boolean used) {
-        this.used = used;
-    }
-
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
-
-    public Integer getHallRow() {
-        return hallRow;
-    }
-
-    public void setHallRow(Integer hallRow) {
-        this.hallRow = hallRow;
-    }
-
-    public Integer getHallCol() {
-        return hallCol;
-    }
-
-    public void setHallCol(Integer hallCol) {
-        this.hallCol = hallCol;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setPriece(Integer priece) {
+        this.priece = priece;
     }
 
     public Hall getHall() {
@@ -136,36 +95,33 @@ public class Screening implements Serializable{
     }
 
     @Override
+    public String toString() {
+        return "Screening{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", priece=" + priece +
+                ", hall=" + hall +
+                ", movie=" + movie +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Screening)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Screening screening = (Screening) o;
 
-        if (!hallCol.equals(screening.hallCol)) return false;
-        if (!hallRow.equals(screening.hallRow)) return false;
-        if (!reservationTime.equals(screening.reservationTime)) return false;
+        if (id != null ? !id.equals(screening.id) : screening.id != null) return false;
+        if (startTime != null ? !startTime.equals(screening.startTime) : screening.startTime != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = reservationTime.hashCode();
-        result = 31 * result + hallRow.hashCode();
-        result = 31 * result + hallCol.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Screening{" +
-                "id=" + id +
-                ", reservationTime=" + reservationTime +
-                ", used=" + used +
-                ", paid=" + paid +
-                ", hallRow=" + hallRow +
-                ", hallCol=" + hallCol +
-                '}';
     }
 }
