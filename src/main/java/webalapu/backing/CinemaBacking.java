@@ -3,8 +3,10 @@ package webalapu.backing;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.primefaces.model.map.LatLng;
 import webalapu.model.Cinema;
+import webalapu.model.Screening;
 import webalapu.model.User;
 import webalapu.service.CinemaManagerLocal;
+import webalapu.service.ScreeningManagerLocal;
 import webalapu.service.UserManagerLocal;
 import webalapu.service.exception.CinemaAlreadyExistsException;
 import webalapu.service.exception.CinemaNotFoundException;
@@ -18,6 +20,7 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -29,6 +32,12 @@ public class CinemaBacking extends BaseBacking implements Serializable {
 
     @EJB
     private UserManagerLocal userManager;
+
+    @EJB
+    private ScreeningManagerLocal screeningManager;
+
+    private List<Screening> screeningList;
+    private List<Screening> filteredScreeningList;
 
     private List<Cinema> cinemas;
     private Cinema selectedCinema;
@@ -118,5 +127,36 @@ public class CinemaBacking extends BaseBacking implements Serializable {
     public String update() {
         System.out.println( "Updated: " + selectedCinema );
         return null;
+    }
+
+    public void getAllScreening(){
+        screeningList = screeningManager.getAllScreening();
+    }
+
+    public List<Screening> getFilteredScreening(){
+        screeningList = screeningManager.getAllScreening();
+        filteredScreeningList = new ArrayList<>();
+        for(Screening scr : screeningList){
+            if(scr.getHall().getCinema().equals(selectedCinema)){
+                filteredScreeningList.add(scr);
+            }
+        }
+        return filteredScreeningList;
+    }
+
+    public List<Screening> getScreeningList() {
+        return screeningList;
+    }
+
+    public void setScreeningList(List<Screening> screeningList) {
+        this.screeningList = screeningList;
+    }
+
+    public List<Screening> getFilteredScreeningList() {
+        return filteredScreeningList;
+    }
+
+    public void setFilteredScreeningList(List<Screening> filteredScreeningList) {
+        this.filteredScreeningList = filteredScreeningList;
     }
 }
