@@ -24,11 +24,15 @@
                 <a href="#{request.contextPath}#{menuBacking.getPath('tickets.xhtml')}">#{msg['ticketsPage']}</a>
             </li>
 
-            <li class="item7${menuBacking.isActive('about.xhtml')}">
+            <li class="item7${menuBacking.isActive('booking.xhtml')}">
+                <a href="#{request.contextPath}#{menuBacking.getPath('booking.xhtml')}">#{msg['bookingPage']}</a>
+            </li>
+
+            <li class="item8${menuBacking.isActive('about.xhtml')}">
                 <a href="#{request.contextPath}#{menuBacking.getPath('about.xhtml')}">#{msg['publicMenu.label.aboutUs']}</a>
             </li>
 
-            <li class="item8${menuBacking.isActive('contact.xhtml')}">
+            <li class="item9${menuBacking.isActive('contact.xhtml')}">
                 <a href="#{request.contextPath}#{menuBacking.getPath('contact.xhtml')}">#{msg['publicMenu.label.contact']}</a>
             </li>
         </ul>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/main.xhtml">
+    <ui:define name="metadata">
+        <f:event type="preRenderView" listener="#{screeningBacking.getAllMovie}" />
+    </ui:define>
+    <ui:define name="metadata">
+        <f:event type="preRenderView" listener="#{screeningBacking.getAllCinema}" />
+    </ui:define>
+    <ui:define name="metadata">
+        <f:event type="preRenderView" listener="#{screeningBacking.getAllScreening}" />
+    </ui:define>
+
+    <ui:define name="featured">
+        <h:form id="screeningForm">
+            <p:panel header="Select a Location" style="margin-bottom:10px;">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="movieMenu" value="#{msg['movie']}" />
+                    <p:selectOneMenu id="movieMenu"  value="#{screeningBacking.selectedStringMovie}" style="width:150px">
+                        <p:ajax listener="#{screeningBacking.onMovieChange}" update="cinemaMenu, screeningMenu" />
+                        <f:selectItem itemLabel="Select movie" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{screeningBacking.movieList}" var="movie"
+                                       itemLabel="#{movie.originalTitle}" itemValue="#{movie.originalTitle}" />
+                        <!--<p:ajax event="change" update="@this" />-->
+                        <!--<p:ajax update="screeningMenu" process="cinemaMenu" event="change" actionListener="#{cinemaBacking.onCinemaChange}" />-->
+                    </p:selectOneMenu>
+                    <br/>
+                    <p:outputLabel for="cinemaMenu" value="#{msg['cinema']}" />
+                    <p:selectOneMenu id="cinemaMenu"  value="#{screeningBacking.selectedStringCinema}" style="width:150px">
+                        <p:ajax listener="#{screeningBacking.onCinemaChange}" update="screeningMenu" />
+                        <f:selectItem itemLabel="Select cinema" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{screeningBacking.cinemaList}" var="cinema"
+                                       itemLabel="#{cinema.name}" itemValue="#{cinema.name}" />
+                    </p:selectOneMenu>
+                    <br/>
+                    <p:outputLabel for="screeningMenu" value="#{msg['startTime']}" />
+                    <p:selectOneMenu id="screeningMenu"  value="#{screeningBacking.selectedStringScreening}" style="width:150px">
+                        <f:selectItem itemLabel="Select screening" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{screeningBacking.filteredScreeningList}" var="screening"
+                                itemLabel="#{screening.startTime}" itemValue="#{screening.id}"/>
+                        <p:ajax listener="#{screeningBacking.onScreeningChange}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <p:separator />
+                <p:commandButton value="#{msg['submit']}" update=":screeningForm:hallDraw" oncomplete="PF('screeningDialog').show()" icon="ui-icon-check" styleClass="smallButton"/>
+
+                <!--<p:commandButton value="Submit"  icon="ui-icon-check" />-->
+            </p:panel>
+            <p:dialog header="#{msg['bookingTickets']}" widgetVar="screeningDialog" modal="true" resizable="true" showEffect="fade" hideEffect="fade" width="700">
+                <p:outputPanel id="passScreening">
+                    <h:form id="hallDraw">
+                        <p:growl id="msgs2" showDetail="true" />
+
+                        <p:panel header="#{msg['selectSeats']}" style="margin-bottom:10px;">
+                            <!--<h:panelGrid columns="10"  cellpadding="5">-->
+                                <c:forEach var="number" begin="1" end="10">
+                                    <h:outputLabel>#{number} |</h:outputLabel>
+                                    <c:forEach var="number2" begin="1" end="8">
+                                        <input type="checkbox" name="#{number}-#{number2}" value="#{number}-#{number2}">#{number2}</input>
+                                    </c:forEach>
+                                    <br/>
+                                </c:forEach>
+                            <!--</h:panelGrid>-->
+                            <p:separator />
+                        </p:panel>
+                        <p:commandButton value="#{msg['book']}" icon="ui-icon-check" styleClass="smallButton"/>
+                    </h:form>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+
+        <!--<h:form id="cboxes"></h:form>-->
+        <script type="text/javascript">
+            function drawHall(rows,cols){
+                document.getElementById("cboxes").innerHTML = "";
+                var myDiv = document.getElementById("cboxes");
+                var animals = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4"];
+                for (var i = 0; i &lt; rows; i++) {
+                    for (var j = 0; j &lt; cols; j++) {
+                        var checkBox = document.createElement("input");
+                        var label = document.createElement("label");
+                        checkBox.type = "checkbox";
+                        checkBox.value = i+"-"+j;
+                        myDiv.appendChild(checkBox);
+                        myDiv.appendChild(label);
+                        label.appendChild(document.createTextNode(i+"-"+j));
+                    }
+                }
+                alert("Futunk!" + rows + "!" + cols);
+            }
+        </script>
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="../menu.xhtml" />
+    </ui:define>
+
+</ui:composition>
+
+</html>
