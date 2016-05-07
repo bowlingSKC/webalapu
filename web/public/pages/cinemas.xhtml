@@ -81,7 +81,7 @@
 
                             <p:tab title="#{msg['public.cinemas.screenings']}">
                                 <h:form>
-                                    <p:dataTable id="screenings" var="screening" value="#{cinemaBacking.filteredScreening}"
+                                    <p:dataTable id="screenings" var="screening" value="#{cinemaBacking.getScreeningByCinema()}"
                                                  emptyMessage="#{msg['public.screenings.resultsEmpty']}"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

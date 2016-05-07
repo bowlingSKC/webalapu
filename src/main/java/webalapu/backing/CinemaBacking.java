@@ -1,8 +1,8 @@
 package webalapu.backing;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.primefaces.model.map.LatLng;
 import webalapu.model.Cinema;
+import webalapu.model.Hall;
 import webalapu.model.Screening;
 import webalapu.model.User;
 import webalapu.service.CinemaManagerLocal;
@@ -52,6 +52,16 @@ public class CinemaBacking extends BaseBacking implements Serializable {
     @PostConstruct
     public void init() {
         cinemas = cinemaManager.getAllCinemas();
+    }
+
+    public List<Screening> getScreeningByCinema() {
+        List<Screening> screenings = new ArrayList<>();
+        if( selectedCinema != null ) {
+            for(Hall hall : selectedCinema.getHalls()) {
+                screenings.addAll(hall.getScreenings());
+            }
+        }
+        return screenings;
     }
 
     public void getAllCinema() {

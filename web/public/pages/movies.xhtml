@@ -35,10 +35,6 @@
                             <h:outputText value="#{movie.duration}"/>
                         </p:column>
 
-                        <p:column headerText="#{msg['public.movies.trailer']}">
-                            <a><h:outputText value="#{movie.youtubeURL}"/></a>
-                        </p:column>
-
                         <p:column headerText="#{msg['public.movies.rate']}" sortBy="#{movie.rate}">
                             <a><h:outputText value="#{movie.rate}"/></a>
                         </p:column>
@@ -54,7 +50,39 @@
 
                 <p:dialog header="#{msg['public.movies.viewMovie']}" widgetVar="showMovieDetailsDialog" modal="true" showEffect="fade" hideEffect="fade">
                     <p:outputPanel id="movieDetail">
-                        Film részletei
+                        <p:panelGrid columns="2" rendered="#{not empty movieBacking.selectedMovie}">
+
+                            <p:outputLabel for="title" value="#{msg['public.movie.title']}:" />
+                            <h:outputText id="title" value="#{movieBacking.selectedMovie.title}" />
+
+                            <p:outputLabel for="origTitle" value="#{msg['public.movie.origtitle']}:" />
+                            <h:outputText id="origTitle" value="#{movieBacking.selectedMovie.originalTitle}" />
+
+                            <p:outputLabel for="duration" value="#{msg['public.movies.duration']}:" />
+                            <h:outputText id="duration" value="#{movieBacking.selectedMovie.duration} min" />
+
+                            <p:outputLabel for="preimer" value="Premier:" />
+                            <h:outputText id="preimer" value="#{movieBacking.selectedMovie.premiere}" />
+
+                            <p:outputLabel for="rank" value="#{msg['public.movies.rate']}:" />
+                            <h:outputText id="rank" value="#{movieBacking.selectedMovie.rate}/10" />
+
+                            <p:outputLabel for="director" value="#{msg['public.movie.director']}:" />
+                            <h:outputText id="director" value="#{movieBacking.selectedMovie.director.name}" />
+
+                            <p:outputLabel for="actors" value="#{msg['public.movie.actors']}:" />
+                            <p:outputLabel id="actors">
+                                <ul>
+                                    <ui:repeat value="#{movieBacking.selectedMovie.actors}" var="actor">
+                                        <li style="#{actor.mainCharacter == true ? 'font-weight: bold' : 'font-weight: normal'}">#{actor.actor.name}</li>
+                                    </ui:repeat>
+                                </ul>
+                            </p:outputLabel>
+
+                            <p:outputLabel value="#{msg['public.movie.youtube']}:" />
+                            <p:media value="#{movieBacking.selectedMovie.youtubeURL}" width="425" height="344" player="flash"/>
+
+                        </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
 

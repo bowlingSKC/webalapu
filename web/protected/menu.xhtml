@@ -41,6 +41,16 @@
                 <li class="item8${menuBacking.isActive('index.xhtml')}">
                     <a href="#{request.contextPath}#{menuBacking.getLoggedPath('index.xhtml')}" accesskey="1" title="">#{msg['userMenu.label.index']}</a>
                 </li>
+
+                <li class="item9${menuBacking.isActive('tickets.xhtml')}">
+                    <a href="tickets.xhtml">#{msg['ticketsPage']}</a>
+                </li>
+
+                <li class="item10${menuBacking.isActive('booking.xhtml')}">
+                    <a href="booking.xhtml">#{msg['bookingPage']}</a>
+                </li>
+
+
             </c:if>
 
         </ul>
